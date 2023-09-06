@@ -30,7 +30,7 @@ class SecondSliderPage extends StatelessWidget {
                   fontWeight: FontWeight.normal,
                   fontSize: 16,
                   color: MyColors.kThirdColor)),
-          const SizedBox(height: 20),
+          // const SizedBox(height: 20),
         ],
       ),
     );

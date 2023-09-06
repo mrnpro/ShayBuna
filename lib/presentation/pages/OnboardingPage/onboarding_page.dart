@@ -1,6 +1,5 @@
+import 'package:coffee_shop/presentation/pages/HomePage/home_page.dart';
 import 'package:coffee_shop/presentation/pages/OnboardingPage/components/slider_page1.dart';
-import 'package:coffee_shop/presentation/pages/OnboardingPage/components/slider_page2.dart';
-import 'package:coffee_shop/presentation/pages/OnboardingPage/components/slider_page3.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,6 +7,9 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../core/constants/assets.dart';
 import '../../../core/constants/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import 'components/slider_page2.dart';
+import 'components/slider_page3.dart';
 
 class OboardingPage extends StatefulWidget {
   const OboardingPage({super.key});
@@ -40,6 +42,8 @@ class _OboardingPageState extends State<OboardingPage> {
     //
     if (pageIndex == 2) {
       // navigate to another screen
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const HomePage()));
       return;
     }
     int nextPage = pageIndex + 1;
@@ -116,7 +120,7 @@ class _OboardingPageState extends State<OboardingPage> {
 
   Widget _mainSlider(Size size) {
     return SizedBox(
-      height: 370.h,
+      height: 490,
       width: size.width,
       child: PageView(
           onPageChanged: _onPageChanged,

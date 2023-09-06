@@ -5,6 +5,10 @@ class Assets {
   /// assets/btn_decorator_logo.svg
   static const String assetsBtnDecoratorLogo = "assets/btn_decorator_logo.svg";
 
+  /// Assets for assetsCapuccinoImage
+  /// assets/capuccino_image.jpg
+  static const String assetsCapuccinoImage = "assets/capuccino_image.jpg";
+
   /// Assets for assetsChapaLogo
   /// assets/chapa_logo.png
   static const String assetsChapaLogo = "assets/chapa_logo.png";
@@ -28,4 +32,8 @@ class Assets {
   /// Assets for assetsOnboardingTopDecorator
   /// assets/onboarding_top_decorator.svg
   static const String assetsOnboardingTopDecorator = "assets/onboarding_top_decorator.svg";
+
+  /// Assets for assetsSearchIcon
+  /// assets/search_icon.svg
+  static const String assetsSearchIcon = "assets/search_icon.svg";
 }
