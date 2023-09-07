@@ -6,6 +6,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/constants/colors.dart';
+import '../../../core/constants/common_widgets.dart';
+import 'circle_animated_image.dart';
 
 class DetailPage extends StatefulWidget {
   const DetailPage({super.key, required this.coffeeModel});
@@ -39,7 +41,9 @@ class _DetailPageState extends State<DetailPage> {
             width: size.width,
             child: Column(children: [
               _arrowBack(),
-              _coffeeImage(),
+              // _coffeeImage(),
+
+              const CircleAnimationImage(),
               _coffeeInfoBox(size, widget.coffeeModel),
               _coffeeDescription(widget.coffeeModel.description),
               _getButton(),
@@ -113,7 +117,8 @@ class _DetailPageState extends State<DetailPage> {
       height: 142,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(27),
-          color: MyColors.kSecondaryColor),
+          color: MyColors.kSecondaryColor,
+          boxShadow: [kBoxShadow]),
       child: Column(children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -190,14 +195,6 @@ class _DetailPageState extends State<DetailPage> {
     );
   }
 
-  Image _coffeeImage() {
-    return Image.asset(
-      Assets.assetsCoffeeCap,
-      width: 241,
-      height: 264,
-    );
-  }
-
   Align _arrowBack() {
     return Align(
       alignment: Alignment.topLeft,
@@ -210,7 +207,8 @@ class _DetailPageState extends State<DetailPage> {
             height: 60,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(27),
-                color: MyColors.kSecondaryColor),
+                color: MyColors.kSecondaryColor,
+                boxShadow: [kBoxShadow]),
             child: Center(
               child: Icon(Icons.arrow_back_ios,
                   size: 35, color: MyColors.kPrimaryColor),
