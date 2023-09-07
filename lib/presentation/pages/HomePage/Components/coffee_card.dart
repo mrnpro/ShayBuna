@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../../../core/constants/assets.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/common_widgets.dart';
+import '../../../../data/CoffeeData/coffee_model.dart';
 
 class CoffeeCard extends StatelessWidget {
   const CoffeeCard({
@@ -11,11 +12,13 @@ class CoffeeCard extends StatelessWidget {
     required this.mochiyPopOneStyle,
     required this.poppinsStyle,
     required this.onPressed,
+    required this.coffeeModel,
   });
 
   final TextStyle mochiyPopOneStyle;
   final TextStyle poppinsStyle;
   final VoidCallback onPressed;
+  final CoffeeModel coffeeModel;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -32,29 +35,21 @@ class CoffeeCard extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Image.asset(
-              Assets.assetsCoffeeCap,
-              width: 141,
-              height: 129,
-            ),
-            Text("French press coffee",
-                style: mochiyPopOneStyle.copyWith(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                )),
+            _coffeeImage(),
+            _title(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("No Milk",
+                    Text(coffeeModel.hasMilk ? "With Milk" : "No Milk",
                         style: poppinsStyle.copyWith(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
                             color: MyColors.kPrimaryColor)),
                     const SizedBox(height: 13),
-                    Text("50\nETB",
+                    Text("${coffeeModel.price}\nETB",
                         style: mochiyPopOneStyle.copyWith(
                             fontSize: 15,
                             fontWeight: FontWeight.w400,
@@ -71,6 +66,30 @@ class CoffeeCard extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Align _title() {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: SizedBox(
+        width: 189 / 1.4,
+        child: Text(coffeeModel.title,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: mochiyPopOneStyle.copyWith(
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+            )),
+      ),
+    );
+  }
+
+  Image _coffeeImage() {
+    return Image.asset(
+      Assets.assetsCoffeeCap,
+      width: 141,
+      height: 129,
     );
   }
 }
