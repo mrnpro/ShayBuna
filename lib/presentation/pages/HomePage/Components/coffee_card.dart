@@ -30,7 +30,7 @@ class CoffeeCard extends StatelessWidget {
         height: 293,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(22),
-          color: const Color(0xff2f0f01),
+          color: MyColors.kSecondaryColor,
           boxShadow: [kBoxShadow],
         ),
         child: Column(
