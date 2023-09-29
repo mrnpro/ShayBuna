@@ -52,9 +52,6 @@ To make the ShayBuna application work with real data, you need to implement the 
 ## Contributing
 Contributions to the ShayBuna project are welcome. If you have any suggestions, bug fixes, or additional features to propose, feel free to open an issue or submit a pull request on the GitHub repository.
 
-## License
-The ShayBuna project is available under the [MIT License](https://github.com/mrnpro/ShayBuna/blob/main/LICENSE). You are free to use, modify, and distribute the code for personal and commercial purposes.
-
 ## Contact
 For any further inquiries or questions regarding the ShayBuna project, you can reach out to the project owner through their GitHub profile: [mrnpro](https://github.com/mrnpro).
 
