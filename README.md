@@ -2,6 +2,8 @@
 
 ## Introduction
 ShayBuna is a coffee shop application that aims to express the rich Ethiopian culture through its offerings. The name "ShayBuna" combines the English words "tea" and "coffee." This project serves as a starting point for developing a coffee shop mobile application that highlights the Ethiopian coffee tradition and provides a unique cultural experience.
+If you're interested in exploring a demo video of the Shay Buna Flutter project, I invite you to watch it on TikTok. The video, available at the following URL, provides a firsthand demonstration of the project's features and functionalities:
+[Shay Buna Flutter Demo Video](https://www.tiktok.com/@linat416/video/7276966436474522886)
 
 ## Getting Started
 To get started with the ShayBuna project, follow the steps below:
