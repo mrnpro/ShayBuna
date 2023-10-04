@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/assets.dart';
 import '../../../../core/constants/colors.dart';
@@ -18,9 +19,7 @@ class SecondSliderPage extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(
-              height: 300,
-              width: 300,
-              child: Image.asset(Assets.assetsCouplesCoffee)),
+              height: 350.h, child: Image.asset(Assets.assetsCouplesCoffee)),
           Text("To get started", style: mochiyPopOneStyle),
           const SizedBox(height: 10),
           Text(
@@ -28,7 +27,7 @@ class SecondSliderPage extends StatelessWidget {
               textAlign: TextAlign.center,
               style: mochiyPopOneStyle.copyWith(
                   fontWeight: FontWeight.normal,
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   color: MyColors.kThirdColor)),
           // const SizedBox(height: 20),
         ],
