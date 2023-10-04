@@ -1,6 +1,7 @@
 import 'package:coffee_shop/core/constants/assets.dart';
 import 'package:coffee_shop/core/constants/colors.dart';
 import 'package:coffee_shop/core/validator/validators.dart';
+import 'package:coffee_shop/presentation/controllers/AuthController/auth_controller.dart';
 import 'package:coffee_shop/presentation/pages/ForgotPasswordPage/forgot_password_page.dart';
 import 'package:coffee_shop/presentation/pages/HomePage/home_page.dart';
 import 'package:coffee_shop/presentation/pages/RegisterationPage/registeration_page.dart';
@@ -9,6 +10,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../../../core/constants/text_styles.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -18,14 +22,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextStyle poppinsStyle = GoogleFonts.poppins(
-      fontSize: 14,
-      fontWeight: FontWeight.w400,
-      color: MyColors.kSecondaryColor);
-  final TextStyle mochiyPopOneStyle = GoogleFonts.mochiyPopOne(
-      fontWeight: FontWeight.bold,
-      fontSize: 26.sp,
-      color: MyColors.kPrimaryColor);
   late FocusNode _emailFocus;
   late bool _emailHasFocus;
   late FocusNode _passwordlFocus;
@@ -67,13 +63,6 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
       _passwordHasFocus = _passwordlFocus.hasFocus;
     });
-  }
-
-  void _onLoginBtnPressed() {
-    if (validated()) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const HomePage()));
-    }
   }
 
   void _onForgotPasswordPressed() {
@@ -120,8 +109,10 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _addError(List<String> error) {
-    setState(() {
-      _errorList = error;
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      setState(() {
+        _errorList = error;
+      });
     });
   }
 
@@ -223,23 +214,61 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   _loginBtn(Size size) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: SizedBox(
-        height: 50,
-        width: size.width,
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-              backgroundColor: MyColors.kSecondaryColor, elevation: 3),
-          onPressed: _onLoginBtnPressed,
-          child: Text(
-            "Login",
-            style: mochiyPopOneStyle.copyWith(
-                color: MyColors.kPrimaryColor, fontSize: 15),
+    return HookConsumer(builder: (context, ref, child) {
+      ref.listen(authNotifierProvider, (previous, next) {
+        next.maybeWhen(
+            orElse: () {},
+            authenticated: (user) {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const HomePage()));
+            },
+            error: (message) {
+              _addError([message]);
+            });
+      });
+      final isLoading = ref
+          .watch(authNotifierProvider)
+          .maybeWhen(orElse: () => false, loading: () => true);
+      if (isLoading) {
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SizedBox(
+            height: 50,
+            width: size.width,
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: MyColors.kSecondaryColor, elevation: 3),
+                onPressed: () {},
+                child: CircularProgressIndicator(
+                  color: MyColors.kPrimaryColor,
+                )),
+          ),
+        );
+      }
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SizedBox(
+          height: 50,
+          width: size.width,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                backgroundColor: MyColors.kSecondaryColor, elevation: 3),
+            onPressed: () {
+              if (validated()) {
+                ref.read(authNotifierProvider.notifier).login(
+                    email: _emailController.text.trim(),
+                    password: _passwordController.text.trim());
+              }
+            },
+            child: Text(
+              "Login",
+              style: mochiyPopOneStyle.copyWith(
+                  color: MyColors.kPrimaryColor, fontSize: 15),
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   _forgotPassword() {
