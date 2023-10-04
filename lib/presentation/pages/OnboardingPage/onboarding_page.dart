@@ -1,6 +1,7 @@
 import 'package:coffee_shop/presentation/pages/HomePage/home_page.dart';
 import 'package:coffee_shop/presentation/pages/OnboardingPage/components/slider_page1.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -8,6 +9,7 @@ import '../../../core/constants/assets.dart';
 import '../../../core/constants/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../LoginPage/login_page.dart';
 import 'components/slider_page2.dart';
 import 'components/slider_page3.dart';
 
@@ -21,7 +23,7 @@ class OboardingPage extends StatefulWidget {
 class _OboardingPageState extends State<OboardingPage> {
   final TextStyle mochiyPopOneStyle = GoogleFonts.mochiyPopOne(
       fontWeight: FontWeight.bold,
-      fontSize: 25.sp,
+      fontSize: 26.sp,
       color: MyColors.kPrimaryColor);
   late PageController _pageController;
   int pageIndex = 0;
@@ -43,7 +45,7 @@ class _OboardingPageState extends State<OboardingPage> {
     if (pageIndex == 2) {
       // navigate to another screen
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const HomePage()));
+          context, MaterialPageRoute(builder: (context) => const LoginPage()));
       return;
     }
     int nextPage = pageIndex + 1;
@@ -59,20 +61,23 @@ class _OboardingPageState extends State<OboardingPage> {
 
   Widget _body(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
-    return SizedBox(
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // this is a decoration that appears on the top of the screen
-            _topDecorator(),
-            // this holds the page view
-            _mainSlider(size),
-            // this is the dots that changes everytime the slider gets swiped
-            _changingDots(size),
-            // this is the button helps changing the swipe
-            _button()
-          ],
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.light,
+      child: SizedBox(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // this is a decoration that appears on the top of the screen
+              _topDecorator(),
+              // this holds the page view
+              _mainSlider(size),
+              // this is the dots that changes everytime the slider gets swiped
+              _changingDots(size),
+              // this is the button helps changing the swipe
+              _button()
+            ],
+          ),
         ),
       ),
     );
