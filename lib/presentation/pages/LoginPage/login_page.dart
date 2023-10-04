@@ -45,6 +45,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void dispose() {
+    _errorList.clear();
     _emailFocus.removeListener(_onEmailFocusChange);
     _emailFocus.dispose();
     _emailController.clear();

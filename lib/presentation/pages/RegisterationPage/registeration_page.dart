@@ -53,6 +53,7 @@ class _RegisterationPageState extends State<RegisterationPage> {
 
   @override
   void dispose() {
+    _errorList.clear();
     _emailFocus.removeListener(_onEmailFocusChange);
     _emailFocus.dispose();
     _emailController.clear();
@@ -232,22 +233,29 @@ class _RegisterationPageState extends State<RegisterationPage> {
   }
 
   _registerBtn(Size size) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: SizedBox(
-        height: 50,
-        width: size.width,
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-              backgroundColor: MyColors.kSecondaryColor, elevation: 3),
-          onPressed: _onRegisterBtnPressed,
-          child: Text(
-            "Register",
-            style: mochiyPopOneStyle.copyWith(
-                color: MyColors.kPrimaryColor, fontSize: 15),
+    return Column(
+      children: [
+        const SizedBox(
+          height: 24,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: SizedBox(
+            height: 50,
+            width: size.width,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: MyColors.kSecondaryColor, elevation: 3),
+              onPressed: _onRegisterBtnPressed,
+              child: Text(
+                "Register",
+                style: mochiyPopOneStyle.copyWith(
+                    color: MyColors.kPrimaryColor, fontSize: 15),
+              ),
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 
