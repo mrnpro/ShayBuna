@@ -1,8 +1,11 @@
+import 'package:coffee_shop/core/constants/text_styles.dart';
+import 'package:coffee_shop/presentation/controllers/AuthController/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../core/constants/assets.dart';
 import '../../../core/constants/colors.dart';
@@ -16,14 +19,7 @@ class ForgotPasswordPage extends StatefulWidget {
 
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final _emailController = TextEditingController();
-  final TextStyle poppinsStyle = GoogleFonts.poppins(
-      fontSize: 14,
-      fontWeight: FontWeight.w400,
-      color: MyColors.kSecondaryColor);
-  final TextStyle mochiyPopOneStyle = GoogleFonts.mochiyPopOne(
-      fontWeight: FontWeight.bold,
-      fontSize: 25.sp,
-      color: MyColors.kPrimaryColor);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,21 +98,109 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   }
 
   _sendResetCodeBtn(Size size) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: SizedBox(
-        height: 50,
-        width: size.width,
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-              backgroundColor: MyColors.kSecondaryColor, elevation: 3),
-          onPressed: _onLoginBtnPressed,
-          child: Text(
-            "Reset",
-            style: mochiyPopOneStyle.copyWith(
-                color: MyColors.kPrimaryColor, fontSize: 15),
+    return HookConsumer(
+      builder: (context, ref, child) {
+        ref.listen(authNotifierProvider, (previous, next) {
+          next.maybeWhen(
+              orElse: () {},
+              wildSucceed: (message) {
+                SnackBar(
+                  content: Text(message),
+                  behavior: SnackBarBehavior.floating,
+                );
+                Future.delayed(const Duration(seconds: 2)).then((value) {
+                  Navigator.pop(context);
+                });
+              },
+              error: (message) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(message),
+                    behavior: SnackBarBehavior.floating,
+                  ),
+                );
+              });
+        });
+
+        final isLoading = ref
+            .watch(authNotifierProvider)
+            .maybeWhen(orElse: () => false, loading: () => true);
+        if (isLoading) {
+          return Column(
+            children: [
+              const SizedBox(
+                height: 24,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: SizedBox(
+                  height: 50,
+                  width: size.width,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: MyColors.kSecondaryColor,
+                          elevation: 3),
+                      onPressed: () {},
+                      child: CircularProgressIndicator(
+                        color: MyColors.kPrimaryColor,
+                      )),
+                ),
+              ),
+            ],
+          );
+        }
+        return Column(
+          children: [
+            const SizedBox(
+              height: 24,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: SizedBox(
+                height: 50,
+                width: size.width,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: MyColors.kSecondaryColor, elevation: 3),
+                  onPressed: () {
+                    ref
+                        .read(authNotifierProvider.notifier)
+                        .forgotPassword(_emailController.text.trim());
+                  },
+                  child: Text(
+                    "Reset",
+                    style: mochiyPopOneStyle.copyWith(
+                        color: MyColors.kPrimaryColor, fontSize: 15),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 24,
           ),
-        ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: SizedBox(
+              height: 50,
+              width: size.width,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: MyColors.kSecondaryColor, elevation: 3),
+                onPressed: () {},
+                child: Text(
+                  "Reset",
+                  style: mochiyPopOneStyle.copyWith(
+                      color: MyColors.kPrimaryColor, fontSize: 15),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -167,6 +251,4 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       ],
     );
   }
-
-  void _onLoginBtnPressed() {}
 }
