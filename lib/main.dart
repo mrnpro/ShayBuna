@@ -17,13 +17,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
+    // SystemChrome.setPreferredOrientations([
+    //   DeviceOrientation.portraitUp,
+    //   DeviceOrientation.portraitDown,
+    // ]);
     return ScreenUtilInit(
       minTextAdapt: true,
       splitScreenMode: true,
+      // this is my emulator screen size
+      designSize: const Size(430.0, 932.0),
       // Use builder only if you need to use library outside ScreenUtilInit context
       builder: (_, child) {
         return ChangeNotifierProvider<CoffeeDataController>(
