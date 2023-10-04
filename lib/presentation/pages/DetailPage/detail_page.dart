@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/common_widgets.dart';
+import '../../../core/constants/text_styles.dart';
 import 'circle_animated_image.dart';
 
 class DetailPage extends StatefulWidget {
@@ -17,14 +18,6 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
-  final TextStyle poppinsStyle = GoogleFonts.poppins(
-      fontSize: 14,
-      fontWeight: FontWeight.w400,
-      color: MyColors.kSecondaryColor);
-  final TextStyle mochiyPopOneStyle = GoogleFonts.mochiyPopOne(
-      fontWeight: FontWeight.bold,
-      fontSize: 25.sp,
-      color: MyColors.kPrimaryColor);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
