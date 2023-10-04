@@ -9,6 +9,7 @@ import '../../../core/constants/assets.dart';
 import '../../../core/constants/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../core/constants/text_styles.dart';
 import '../LoginPage/login_page.dart';
 import 'components/slider_page2.dart';
 import 'components/slider_page3.dart';
@@ -21,10 +22,6 @@ class OboardingPage extends StatefulWidget {
 }
 
 class _OboardingPageState extends State<OboardingPage> {
-  final TextStyle mochiyPopOneStyle = GoogleFonts.mochiyPopOne(
-      fontWeight: FontWeight.bold,
-      fontSize: 26.sp,
-      color: MyColors.kPrimaryColor);
   late PageController _pageController;
   int pageIndex = 0;
   @override
