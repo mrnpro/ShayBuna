@@ -1,6 +1,7 @@
 import 'package:coffee_shop/core/constants/assets.dart';
 import 'package:coffee_shop/core/constants/colors.dart';
 import 'package:coffee_shop/core/validator/validators.dart';
+import 'package:coffee_shop/presentation/controllers/AuthController/auth_controller.dart';
 import 'package:coffee_shop/presentation/pages/HomePage/home_page.dart';
 import 'package:coffee_shop/presentation/pages/LoginPage/login_page.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../../../core/constants/text_styles.dart';
 
 class RegisterationPage extends StatefulWidget {
   const RegisterationPage({super.key});
@@ -17,14 +21,6 @@ class RegisterationPage extends StatefulWidget {
 }
 
 class _RegisterationPageState extends State<RegisterationPage> {
-  final TextStyle poppinsStyle = GoogleFonts.poppins(
-      fontSize: 14,
-      fontWeight: FontWeight.w400,
-      color: MyColors.kSecondaryColor);
-  final TextStyle mochiyPopOneStyle = GoogleFonts.mochiyPopOne(
-      fontWeight: FontWeight.bold,
-      fontSize: 26.sp,
-      color: MyColors.kPrimaryColor);
   late FocusNode _emailFocus;
   late bool _emailHasFocus;
   late FocusNode _passwordlFocus;
@@ -82,13 +78,6 @@ class _RegisterationPageState extends State<RegisterationPage> {
     setState(() {
       _phoneHasFocus = _phoneFocus.hasFocus;
     });
-  }
-
-  void _onRegisterBtnPressed() {
-    if (validated()) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const HomePage()));
-    }
   }
 
   void _onAlreadyMemberPressed() {
@@ -233,29 +222,91 @@ class _RegisterationPageState extends State<RegisterationPage> {
   }
 
   _registerBtn(Size size) {
-    return Column(
-      children: [
-        const SizedBox(
-          height: 24,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: SizedBox(
-            height: 50,
-            width: size.width,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: MyColors.kSecondaryColor, elevation: 3),
-              onPressed: _onRegisterBtnPressed,
-              child: Text(
-                "Register",
-                style: mochiyPopOneStyle.copyWith(
-                    color: MyColors.kPrimaryColor, fontSize: 15),
+    return HookConsumer(
+      builder: (context, ref, child) {
+        ref.listen(authNotifierProvider, (previous, next) {
+          next.maybeWhen(
+            orElse: () {},
+            authenticated: (user) {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const HomePage()));
+            },
+            unauthenticated: (message) {
+              //
+            },
+            error: (error) {
+              _addError([error]);
+            },
+          );
+        });
+        final isLoading = ref
+            .watch(authNotifierProvider)
+            .maybeWhen(orElse: () => false, loading: () => true);
+        if (isLoading) {
+          return Column(
+            children: [
+              const SizedBox(
+                height: 24,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: SizedBox(
+                  height: 50,
+                  width: size.width,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: MyColors.kSecondaryColor,
+                          elevation: 3),
+                      onPressed: () {},
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: MyColors.kPrimaryColor,
+                        ),
+                      )),
+                ),
+              ),
+            ],
+          );
+        }
+        return Column(
+          children: [
+            const SizedBox(
+              height: 24,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: SizedBox(
+                height: 50,
+                width: size.width,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: MyColors.kSecondaryColor, elevation: 3),
+                  onPressed: () {
+                    final result = ref
+                        .watch(authNotifierProvider)
+                        .maybeWhen(orElse: () => false, loading: () => true);
+                    if (result) {
+                      return;
+                    }
+                    if (validated()) {
+                      ref.watch(authNotifierProvider.notifier).signUp(
+                          email: _emailController.text.trim(),
+                          password: _passwordController.text.trim(),
+                          phoneNumber: _phoneController.text.trim());
+                      return;
+                    }
+                  },
+                  child: Text(
+                    "Register",
+                    style: mochiyPopOneStyle.copyWith(
+                        color: MyColors.kPrimaryColor, fontSize: 15),
+                  ),
+                ),
               ),
             ),
-          ),
-        ),
-      ],
+          ],
+        );
+      },
     );
   }
 
