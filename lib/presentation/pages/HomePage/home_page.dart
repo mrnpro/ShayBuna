@@ -1,5 +1,6 @@
 import 'package:coffee_shop/core/constants/assets.dart';
 import 'package:coffee_shop/core/constants/colors.dart';
+import 'package:coffee_shop/core/constants/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,14 +23,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final TextStyle poppinsStyle = GoogleFonts.poppins(
-      fontSize: 14,
-      fontWeight: FontWeight.w400,
-      color: MyColors.kSecondaryColor);
-  final TextStyle mochiyPopOneStyle = GoogleFonts.mochiyPopOne(
-      fontWeight: FontWeight.bold,
-      fontSize: 25.sp,
-      color: MyColors.kPrimaryColor);
   @override
   void initState() {
     super.initState();
