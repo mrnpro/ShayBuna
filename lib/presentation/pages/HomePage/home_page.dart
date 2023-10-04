@@ -1,6 +1,7 @@
 import 'package:coffee_shop/core/constants/assets.dart';
 import 'package:coffee_shop/core/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -42,22 +43,25 @@ class _HomePageState extends State<HomePage> {
 
   _body(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
-    return SafeArea(
-      child: SizedBox(
-          width: size.width,
-          child: SingleChildScrollView(
-            child: Column(children: [
-              _shaybunaLogo(),
-              _searchFlavor(size: size, poppinsStyle: poppinsStyle),
-              _CategoryChoice(
-                size: size,
-                poppinsStyle: poppinsStyle,
-              ),
-              _categories(),
-              _specialForYouText(),
-              _specialList(size)
-            ]),
-          )),
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.dark,
+      child: SafeArea(
+        child: SizedBox(
+            width: size.width,
+            child: SingleChildScrollView(
+              child: Column(children: [
+                _shaybunaLogo(),
+                _searchFlavor(size: size, poppinsStyle: poppinsStyle),
+                _CategoryChoice(
+                  size: size,
+                  poppinsStyle: poppinsStyle,
+                ),
+                _categories(),
+                _specialForYouText(),
+                _specialList(size)
+              ]),
+            )),
+      ),
     );
   }
 
@@ -118,7 +122,7 @@ class _HomePageState extends State<HomePage> {
         const SizedBox(
           height: 10,
         ),
-        SvgPicture.asset(Assets.assetsLogo),
+        Hero(tag: 'shay_buna_logo', child: SvgPicture.asset(Assets.assetsLogo)),
       ],
     );
   }
