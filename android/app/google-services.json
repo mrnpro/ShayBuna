@@ -1,0 +1,511 @@
+{
+  "project_info": {
+    "project_number": "396073457231",
+    "firebase_url": "https://flutter-326720-default-rtdb.firebaseio.com",
+    "project_id": "flutter-326720",
+    "storage_bucket": "flutter-326720.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396073457231:android:3da760ad63f82f2de8fc3a",
+        "android_client_info": {
+          "package_name": "com.example.coffee_shop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "396073457231-51m0p7pjgoq1rg2gvhm56f0vqduk07iq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRj3elRBVcEZT1zjhmWAQ-h17upTIDAeI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "396073457231-51m0p7pjgoq1rg2gvhm56f0vqduk07iq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "396073457231-1svi60ik0u7onpvl2l41ln7b715nbfdb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mrnpro.pharmaBet"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396073457231:android:60b34c96fefbac2be8fc3a",
+        "android_client_info": {
+          "package_name": "com.example.dlet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "396073457231-51m0p7pjgoq1rg2gvhm56f0vqduk07iq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRj3elRBVcEZT1zjhmWAQ-h17upTIDAeI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "396073457231-51m0p7pjgoq1rg2gvhm56f0vqduk07iq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "396073457231-1svi60ik0u7onpvl2l41ln7b715nbfdb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mrnpro.pharmaBet"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396073457231:android:5449d5b5f1dfb151e8fc3a",
+        "android_client_info": {
+          "package_name": "com.example.firebaseinflutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "396073457231-0lrtvk35dhr7rdcbespckjd94htnaqm9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.firebaseinflutter",
+            "certificate_hash": "0ca296c31b73be7025128b6377f2782ae02ed6ac"
+          }
+        },
+        {
+          "client_id": "396073457231-51m0p7pjgoq1rg2gvhm56f0vqduk07iq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRj3elRBVcEZT1zjhmWAQ-h17upTIDAeI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "396073457231-51m0p7pjgoq1rg2gvhm56f0vqduk07iq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "396073457231-1svi60ik0u7onpvl2l41ln7b715nbfdb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mrnpro.pharmaBet"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396073457231:android:6a9987942c07e206e8fc3a",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "396073457231-51m0p7pjgoq1rg2gvhm56f0vqduk07iq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRj3elRBVcEZT1zjhmWAQ-h17upTIDAeI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "396073457231-51m0p7pjgoq1rg2gvhm56f0vqduk07iq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "396073457231-1svi60ik0u7onpvl2l41ln7b715nbfdb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mrnpro.pharmaBet"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396073457231:android:2715ba4d0ca7b590e8fc3a",
+        "android_client_info": {
+          "package_name": "com.example.helloworld"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "396073457231-51m0p7pjgoq1rg2gvhm56f0vqduk07iq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRj3elRBVcEZT1zjhmWAQ-h17upTIDAeI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "396073457231-51m0p7pjgoq1rg2gvhm56f0vqduk07iq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "396073457231-1svi60ik0u7onpvl2l41ln7b715nbfdb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mrnpro.pharmaBet"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396073457231:android:108c9b54dcf99f71e8fc3a",
+        "android_client_info": {
+          "package_name": "com.example.todo_list_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "396073457231-51m0p7pjgoq1rg2gvhm56f0vqduk07iq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRj3elRBVcEZT1zjhmWAQ-h17upTIDAeI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "396073457231-51m0p7pjgoq1rg2gvhm56f0vqduk07iq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "396073457231-1svi60ik0u7onpvl2l41ln7b715nbfdb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mrnpro.pharmaBet"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396073457231:android:8d26147dd0352535e8fc3a",
+        "android_client_info": {
+          "package_name": "com.gg.hh"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "396073457231-51m0p7pjgoq1rg2gvhm56f0vqduk07iq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRj3elRBVcEZT1zjhmWAQ-h17upTIDAeI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "396073457231-51m0p7pjgoq1rg2gvhm56f0vqduk07iq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "396073457231-1svi60ik0u7onpvl2l41ln7b715nbfdb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mrnpro.pharmaBet"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396073457231:android:391813fa76a8818be8fc3a",
+        "android_client_info": {
+          "package_name": "com.mrnpro.awra1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "396073457231-51m0p7pjgoq1rg2gvhm56f0vqduk07iq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRj3elRBVcEZT1zjhmWAQ-h17upTIDAeI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "396073457231-51m0p7pjgoq1rg2gvhm56f0vqduk07iq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "396073457231-1svi60ik0u7onpvl2l41ln7b715nbfdb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mrnpro.pharmaBet"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396073457231:android:afe9b3a16963abc9e8fc3a",
+        "android_client_info": {
+          "package_name": "com.mrnpro.client_ecomerce.client_e"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "396073457231-51m0p7pjgoq1rg2gvhm56f0vqduk07iq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRj3elRBVcEZT1zjhmWAQ-h17upTIDAeI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "396073457231-51m0p7pjgoq1rg2gvhm56f0vqduk07iq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "396073457231-1svi60ik0u7onpvl2l41ln7b715nbfdb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mrnpro.pharmaBet"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396073457231:android:bce659a8fae7ca2ee8fc3a",
+        "android_client_info": {
+          "package_name": "com.mrnpro.pharma_bet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "396073457231-8juo769qrih1mv9mov1ant7o3pdvsa83.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mrnpro.pharma_bet",
+            "certificate_hash": "e63c9c104b39eeb512f5c794149021ad9b80ea8f"
+          }
+        },
+        {
+          "client_id": "396073457231-cgggmecn6f42alahvr89ihu4voglklf8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mrnpro.pharma_bet",
+            "certificate_hash": "13173f4be5ca688541fa520f4004c88d2355581e"
+          }
+        },
+        {
+          "client_id": "396073457231-51m0p7pjgoq1rg2gvhm56f0vqduk07iq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRj3elRBVcEZT1zjhmWAQ-h17upTIDAeI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "396073457231-51m0p7pjgoq1rg2gvhm56f0vqduk07iq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "396073457231-1svi60ik0u7onpvl2l41ln7b715nbfdb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mrnpro.pharmaBet"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396073457231:android:5476f2025e0ab399e8fc3a",
+        "android_client_info": {
+          "package_name": "com.mrnpro.portfolio.dmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "396073457231-c788o2lft643ifuvlrq6q26u8i78b5ic.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mrnpro.portfolio.dmin",
+            "certificate_hash": "6e1de3c6f069b72c9f8f084c30aa83f8548948e4"
+          }
+        },
+        {
+          "client_id": "396073457231-51m0p7pjgoq1rg2gvhm56f0vqduk07iq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRj3elRBVcEZT1zjhmWAQ-h17upTIDAeI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "396073457231-51m0p7pjgoq1rg2gvhm56f0vqduk07iq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "396073457231-1svi60ik0u7onpvl2l41ln7b715nbfdb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mrnpro.pharmaBet"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396073457231:android:d2f0f5833e38c551e8fc3a",
+        "android_client_info": {
+          "package_name": "com.npro.firebase.firebase_learn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "396073457231-51m0p7pjgoq1rg2gvhm56f0vqduk07iq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRj3elRBVcEZT1zjhmWAQ-h17upTIDAeI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "396073457231-51m0p7pjgoq1rg2gvhm56f0vqduk07iq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "396073457231-1svi60ik0u7onpvl2l41ln7b715nbfdb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mrnpro.pharmaBet"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396073457231:android:b16fd2df0c1402ade8fc3a",
+        "android_client_info": {
+          "package_name": "com.sth.sd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "396073457231-51m0p7pjgoq1rg2gvhm56f0vqduk07iq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRj3elRBVcEZT1zjhmWAQ-h17upTIDAeI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "396073457231-51m0p7pjgoq1rg2gvhm56f0vqduk07iq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "396073457231-1svi60ik0u7onpvl2l41ln7b715nbfdb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mrnpro.pharmaBet"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
