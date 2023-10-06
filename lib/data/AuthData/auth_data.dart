@@ -1,4 +1,4 @@
-import 'package:coffee_shop/core/providers/firebase_providers.dart';
+import 'package:coffee_shop/core/providers/general_providers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dartz/dartz.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
