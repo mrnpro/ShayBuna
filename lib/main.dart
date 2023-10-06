@@ -1,4 +1,5 @@
 import 'package:coffee_shop/firebase_options.dart';
+import 'package:coffee_shop/presentation/pages/HomePage/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -23,22 +24,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // SystemChrome.setPreferredOrientations([
-    //   DeviceOrientation.portraitUp,
-    //   DeviceOrientation.portraitDown,
-    // ]);
     return ScreenUtilInit(
       minTextAdapt: true,
       splitScreenMode: true,
-      // this is my emulator screen size
       designSize: const Size(430.0, 932.0),
-      // Use builder only if you need to use library outside ScreenUtilInit context
       builder: (_, child) {
-        // return ChangeNotifierProvider<CoffeeDataController>(
-        //     create: (_) => CoffeeDataController(MockDatas())
-        //       ..fetchData()
-        //       ..fetchAllCategories(),
-        //     child:
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Shay Buna',
