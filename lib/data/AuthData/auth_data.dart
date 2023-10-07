@@ -4,7 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final authDataProvider = Provider<AuthData>(
-  (ref) => AuthDataImpl(firebaseAuth: ref.read(firebaseAuthProvider), ref: ref),
+  (ref) => AuthDataImpl(ref: ref),
 );
 
 abstract class AuthData {
@@ -19,18 +19,17 @@ abstract class AuthData {
 }
 
 class AuthDataImpl implements AuthData {
-  final FirebaseAuth _firebaseAuth;
   final Ref _ref;
 
-  AuthDataImpl({required FirebaseAuth firebaseAuth, required Ref ref})
-      : _firebaseAuth = firebaseAuth,
-        _ref = ref; // use for reading other providers
+  AuthDataImpl({required Ref ref}) : _ref = ref;
+  // use for reading other providers
 
   @override
   Future<Either<String, User>> signIn(
       {required String email, required String password}) async {
     try {
-      UserCredential userCredential = await _firebaseAuth
+      UserCredential userCredential = await _ref
+          .read(firebaseAuthProvider)
           .signInWithEmailAndPassword(email: email, password: password);
       User? user = userCredential.user;
       if (user == null) {
@@ -47,7 +46,9 @@ class AuthDataImpl implements AuthData {
   @override
   Future<Either<String, String>> forgotPassword({required String email}) async {
     try {
-      await _firebaseAuth.sendPasswordResetEmail(email: email);
+      await _ref
+          .read(firebaseAuthProvider)
+          .sendPasswordResetEmail(email: email);
       return Right("the reset link has been sent to $email");
     } on FirebaseAuthException catch (e) {
       return Left(e.message.toString());
@@ -57,7 +58,7 @@ class AuthDataImpl implements AuthData {
   @override
   Future<Either<String, String>> signOut() async {
     try {
-      await _firebaseAuth.signOut();
+      await _ref.read(firebaseAuthProvider).signOut();
       return const Right("signed out successfully");
     } catch (e) {
       return const Left("Error signing out");
@@ -70,7 +71,8 @@ class AuthDataImpl implements AuthData {
       required String password,
       required String phoneNumber}) async {
     try {
-      UserCredential userCredential = await _firebaseAuth
+      UserCredential userCredential = await _ref
+          .read(firebaseAuthProvider)
           .createUserWithEmailAndPassword(email: email, password: password);
       User? user = userCredential.user;
       if (user == null) {
