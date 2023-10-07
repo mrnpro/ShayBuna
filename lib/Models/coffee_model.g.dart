@@ -14,7 +14,7 @@ _$CoffeeModelImpl _$$CoffeeModelImplFromJson(Map<String, dynamic> json) =>
       description: json['description'] as String,
       imagePath: json['imagePath'] as String,
       hasMilk: json['hasMilk'] as bool,
-      discount: json['discount'] as String?,
+      discountText: json['discountText'] as String?,
       hasDiscount: json['hasDiscount'] as bool?,
     );
 
@@ -26,6 +26,6 @@ Map<String, dynamic> _$$CoffeeModelImplToJson(_$CoffeeModelImpl instance) =>
       'description': instance.description,
       'imagePath': instance.imagePath,
       'hasMilk': instance.hasMilk,
-      'discount': instance.discount,
+      'discountText': instance.discountText,
       'hasDiscount': instance.hasDiscount,
     };
