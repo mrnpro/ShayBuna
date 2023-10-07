@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final specialDataStateNotifierProvider =
     StateNotifierProvider<SpecialDataController, AsyncValue<List<CoffeeModel>>>(
-        (ref) => SpecialDataController(ref: ref));
+        (ref) => SpecialDataController(ref: ref)..fetchSpecials());
 
 class SpecialDataController
     extends StateNotifier<AsyncValue<List<CoffeeModel>>> {
