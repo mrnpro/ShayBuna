@@ -22,12 +22,16 @@ class FirstSliderPage extends StatelessWidget {
             child: Image.asset(Assets.assetsCoffeeCap)),
         Text("Welcome to Shay Buna", style: mochiyPopOneStyle),
         const SizedBox(height: 10),
-        Text("We're excited to help you find the perfect cup of coffee",
-            textAlign: TextAlign.center,
-            style: mochiyPopOneStyle.copyWith(
-                fontWeight: FontWeight.normal,
-                fontSize: 18.sp,
-                color: MyColors.kThirdColor)),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+          child: Text(
+              "We're excited to help you find the perfect cup of coffee",
+              textAlign: TextAlign.center,
+              style: mochiyPopOneStyle.copyWith(
+                  fontWeight: FontWeight.normal,
+                  fontSize: 18.sp,
+                  color: MyColors.kThirdColor)),
+        ),
         const SizedBox(height: 50),
       ],
     );
