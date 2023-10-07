@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../data/Models/coffee_model.dart';
+import '../../../Models/coffee_model.dart';
 part 'coffee_state.freezed.dart';
 
 @freezed
