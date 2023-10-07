@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../../Models/coffee_model.dart';
 import '../../../../core/constants/assets.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/common_widgets.dart';
-import '../../../../data/Models/coffee_model.dart';
 
 class CoffeeCard extends StatelessWidget {
   const CoffeeCard({
@@ -23,7 +23,8 @@ class CoffeeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onPressed,
-      child: Container(
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 500),
         margin: const EdgeInsets.only(left: 10, top: 22),
         padding: const EdgeInsets.all(15),
         width: 189,
