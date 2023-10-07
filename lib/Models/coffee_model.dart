@@ -12,6 +12,8 @@ class CoffeeModel with _$CoffeeModel {
     required String description,
     required String imagePath,
     required bool hasMilk,
+    String? discount,
+    bool? hasDiscount,
   }) = _CoffeeModel;
   factory CoffeeModel.fromJson(Map<String, dynamic> json) =>
       _$CoffeeModelFromJson(json);
