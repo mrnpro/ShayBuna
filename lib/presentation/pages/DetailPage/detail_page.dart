@@ -1,10 +1,10 @@
 import 'package:coffee_shop/core/constants/assets.dart';
-import 'package:coffee_shop/data/Models/coffee_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../Models/coffee_model.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/common_widgets.dart';
 import '../../../core/constants/text_styles.dart';
