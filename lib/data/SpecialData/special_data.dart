@@ -24,16 +24,14 @@ class SpecialDataImpl implements SpecialData {
       return const Left("UnAuthorized");
     }
     final reference =
-        _ref.read(firebaseDatabaseProvider).ref('special_data').child(userId);
+        _ref.read(firebaseDatabaseProvider).ref('special_coffee_data');
 
     try {
       final firebaseData = await reference.get();
       final specialDatas = <CoffeeModel>[];
 
-      final endocdedData = jsonEncode(firebaseData.value);
-      for (var element in jsonDecode(endocdedData)) {
-        specialDatas.add(CoffeeModel.fromJson(element));
-      }
+      final endcodedData = jsonEncode(firebaseData.value);
+      for (var element in jsonDecode(endcodedData)) {}
       return Right(specialDatas);
     } on FirebaseException catch (e) {
       return Left(e.message ?? "something went wrong , please try again later");
