@@ -6,11 +6,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 final firebaseAuthProvider = Provider<FirebaseAuth>(
   (ref) => FirebaseAuth.instance,
 );
-final firebaseDatabase = Provider<FirebaseDatabase>((ref) {
-  final firebaseApp = Firebase.app(); // you can use it like this
-  final rtdb = FirebaseDatabase.instanceFor(
-      app: firebaseApp,
-      databaseURL: 'https://flutter-326720-default-rtdb.firebaseio.com');
+final firebaseDatabaseProvider = Provider<FirebaseDatabase>((ref) {
+  final rtdb = FirebaseDatabase.instance;
 
   return rtdb;
 });
