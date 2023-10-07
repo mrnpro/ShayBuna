@@ -5,14 +5,14 @@ class CustomChoiceChip extends StatelessWidget {
   const CustomChoiceChip({
     super.key,
     required this.poppinsStyle,
-    required this.onPressed,
+    this.onPressed,
     required this.chipText,
     required this.isActive,
   });
   final bool isActive;
   final String chipText;
   final TextStyle poppinsStyle;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   @override
   Widget build(BuildContext context) {
     return InkWell(
