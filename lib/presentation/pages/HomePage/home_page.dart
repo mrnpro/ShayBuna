@@ -7,11 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:provider/provider.dart';
+
+import '../../../Models/coffee_model.dart';
+import '../../../core/Components/skeleton.dart';
+import '../../controllers/SpecialController/special_data_controller.dart';
 import '../DetailPage/detail_page.dart';
 
+import '../SearchPage/search_page.dart';
 import 'Components/choice_chips.dart';
 import 'Components/coffee_card.dart';
 import 'Components/special_for_you_item.dart';
@@ -40,18 +43,18 @@ class _HomePageState extends State<HomePage> {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.dark,
       child: SafeArea(
+        bottom: false,
         child: SizedBox(
             width: size.width,
             child: SingleChildScrollView(
               child: Column(children: [
-                _shaybunaLogo(),
+                _topSection(),
                 _SearchFlavor(size: size, poppinsStyle: poppinsStyle),
                 _CategoryChoice(
                   size: size,
                   poppinsStyle: poppinsStyle,
                 ),
                 _categories(),
-                _specialForYouText(),
                 _specialList(size)
               ]),
             )),
@@ -59,25 +62,29 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Column _specialList(Size size) {
-    return Column(children: [
-      SpecialForYouItem(size: size, poppinsStyle: poppinsStyle),
-      SpecialForYouItem(size: size, poppinsStyle: poppinsStyle),
-      SpecialForYouItem(size: size, poppinsStyle: poppinsStyle)
-    ]);
+  Row _topSection() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        IconButton(
+            onPressed: () {
+              //open drawer
+            },
+            icon: const Icon(Icons.menu)),
+        _shaybunaLogo(),
+        const Text("              ")
+      ],
+    );
   }
 
-  Padding _specialForYouText() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 56, left: 10, bottom: 5),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: Text("Special for you ",
-            style: poppinsStyle.copyWith(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-            )),
-      ),
+  Column _shaybunaLogo() {
+    return Column(
+      children: [
+        const SizedBox(
+          height: 10,
+        ),
+        Hero(tag: 'shay_buna_logo', child: SvgPicture.asset(Assets.assetsLogo)),
+      ],
     );
   }
 
@@ -96,39 +103,137 @@ class _HomePageState extends State<HomePage> {
                   loaded: (coffees) => coffees,
                 );
 
-            if (isLoading) {
-              return const CircularProgressIndicator();
+            if (isLoading || data == null) {
+              return _coffeeLoading(context);
             }
-            return Row(
-              children: data!
-                  .map(
-                    (e) => CoffeeCard(
-                        coffeeModel: e,
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DetailPage(
-                                        coffeeModel: e,
-                                      )));
-                        },
-                        mochiyPopOneStyle: mochiyPopOneStyle,
-                        poppinsStyle: poppinsStyle),
-                  )
-                  .toList(),
-            );
+            return _coffeeDisplay(data, context);
           },
         ));
   }
 
-  Column _shaybunaLogo() {
+  Widget _specialList(Size size) {
     return Column(
       children: [
-        const SizedBox(
-          height: 10,
-        ),
-        Hero(tag: 'shay_buna_logo', child: SvgPicture.asset(Assets.assetsLogo)),
+        HookConsumer(builder: (context, ref, child) {
+          final isLoading = ref
+              .watch(specialDataStateNotifierProvider)
+              .maybeWhen(orElse: () => false, loading: () => true);
+          if (isLoading) {
+            return Column(
+              children: [
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Skeleton(
+                    margin: EdgeInsets.only(top: 56, left: 10, bottom: 5),
+                    height: 10,
+                    width: 100,
+                  ),
+                ),
+                ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: 5,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
+                      child: Align(
+                        alignment: Alignment.bottomRight,
+                        child: Skeleton(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 30, horizontal: 2),
+                          width: size.width,
+                          height: 113,
+                          // child: Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //   children: [
+                          //     const Text(""),
+                          //     SvgPicture.asset(
+                          //       Assets.assetsLogoDecorator,
+                          //       width: 20,
+                          //       height: 199,
+                          //     ),
+                          //   ],
+                          // ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            );
+          }
+          return Column(children: [
+            _specialForYouText(),
+            SpecialForYouItem(size: size, poppinsStyle: poppinsStyle),
+            SpecialForYouItem(size: size, poppinsStyle: poppinsStyle),
+            SpecialForYouItem(size: size, poppinsStyle: poppinsStyle)
+          ]);
+        }),
       ],
+    );
+  }
+
+  Padding _specialForYouText() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 56, left: 10, bottom: 5),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Text("Special for you ",
+            style: poppinsStyle.copyWith(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            )),
+      ),
+    );
+  }
+
+  Row _coffeeDisplay(List<CoffeeModel> data, BuildContext context) {
+    return Row(
+      children: data
+          .map(
+            (e) => CoffeeCard(
+                coffeeModel: e,
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => DetailPage(
+                                coffeeModel: e,
+                              )));
+                },
+                mochiyPopOneStyle: mochiyPopOneStyle,
+                poppinsStyle: poppinsStyle),
+          )
+          .toList(),
+    );
+  }
+
+  SizedBox _coffeeLoading(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.sizeOf(context).width,
+      height: 293,
+      child: ListView.builder(
+        clipBehavior: Clip.none,
+        padding: EdgeInsets.zero,
+        scrollDirection: Axis.horizontal,
+        itemCount: 3,
+        itemBuilder: (context, index) {
+          return Skeleton(
+            margin: const EdgeInsets.only(left: 10, top: 22),
+            width: 189,
+            height: 293,
+            child: Opacity(
+              opacity: 0.5,
+              child: SvgPicture.asset(
+                Assets.assetsLogoDecorator,
+                width: 20,
+                height: 199,
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }
@@ -147,7 +252,6 @@ class _CategoryChoice extends StatefulWidget {
 }
 
 class _CategoryChoiceState extends State<_CategoryChoice> {
-  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -157,7 +261,6 @@ class _CategoryChoiceState extends State<_CategoryChoice> {
         ),
         HookConsumer(
           builder: (context, ref, child) {
-            // send request ,
             final currentSelectedIndex = ref.watch(categoryIndexStateProvider);
 
             final isLoading = ref.watch(cofeeCategoryNotifier).maybeWhen(
@@ -168,54 +271,62 @@ class _CategoryChoiceState extends State<_CategoryChoice> {
                   orElse: () => null,
                   data: (coffees) => coffees,
                 );
-            if (isLoading) {
-              return SizedBox(
-                height: 34,
-                width: widget.size.width,
-                child: ListView.builder(
-                    itemCount: 5,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return CustomChoiceChip(
-                          isActive: false,
-                          chipText: "",
-                          poppinsStyle: widget.poppinsStyle,
-                          onPressed: () {});
-                    }),
-              );
+            if (isLoading || data == null) {
+              return _categoryLoading();
             }
-            return SizedBox(
-              height: 34,
-              width: widget.size.width,
-              child: ListView.builder(
-                  itemCount: data!.length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    if (index == currentSelectedIndex) {
-                      return CustomChoiceChip(
-                          isActive: true,
-                          chipText: data[index],
-                          poppinsStyle: widget.poppinsStyle,
-                          onPressed: () {});
-                    }
-
-                    return CustomChoiceChip(
-                        isActive: false,
-                        chipText: data[index],
-                        poppinsStyle: widget.poppinsStyle,
-                        onPressed: () {
-                          print(index);
-                          ref.read(categoryIndexStateProvider.notifier).state =
-                              index;
-                          ref
-                              .read(coffeeNotifierProvider.notifier)
-                              .fetchCoffee(category: data[index]);
-                        });
-                  }),
-            );
+            return _categoryData(data, currentSelectedIndex, ref);
           },
         ),
       ],
+    );
+  }
+
+  SizedBox _categoryData(
+      List<String> data, int currentSelectedIndex, WidgetRef ref) {
+    return SizedBox(
+      height: 34,
+      width: widget.size.width,
+      child: ListView.builder(
+          itemCount: data.length,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            if (index == currentSelectedIndex) {
+              return CustomChoiceChip(
+                  isActive: true,
+                  chipText: data[index],
+                  poppinsStyle: widget.poppinsStyle,
+                  onPressed: () {});
+            }
+
+            return CustomChoiceChip(
+                isActive: false,
+                chipText: data[index],
+                poppinsStyle: widget.poppinsStyle,
+                onPressed: () {
+                  print(index);
+                  ref.read(categoryIndexStateProvider.notifier).state = index;
+                  ref
+                      .read(coffeeNotifierProvider.notifier)
+                      .fetchCoffee(category: data[index]);
+                });
+          }),
+    );
+  }
+
+  SizedBox _categoryLoading() {
+    return SizedBox(
+      height: 34,
+      width: widget.size.width,
+      child: ListView.builder(
+          itemCount: 20,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            return CustomChoiceChip(
+                isActive: false,
+                chipText: "",
+                poppinsStyle: widget.poppinsStyle,
+                onPressed: () {});
+          }),
     );
   }
 }
@@ -236,22 +347,53 @@ class _SearchFlavor extends StatelessWidget {
         const SizedBox(
           height: 24,
         ),
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10),
-          padding: const EdgeInsets.all(10),
-          width: size.width,
-          height: 51,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(14),
-              border: Border.all(color: MyColors.kSecondaryColor),
-              color: const Color(0xffdacabd)),
-          child: Row(children: [
-            SvgPicture.asset(Assets.assetsSearchIcon),
-            const SizedBox(
-              width: 10,
+        InkWell(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SearchPage(),
+                ));
+          },
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.all(10),
+            width: size.width,
+            height: 51,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(14),
+                border: Border.all(color: MyColors.kSecondaryColor),
+                color: const Color(0xffdacabd)),
+            child: Center(
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Hero(
+                            tag: 'search_icon',
+                            child: SvgPicture.asset(Assets.assetsSearchIcon)),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Hero(
+                            tag: 'search_your_flavor',
+                            child: Text("Search your flavor",
+                                style: poppinsStyle)),
+                      ],
+                    ),
+                    Hero(
+                      tag: 'filter_icon',
+                      child: Center(
+                          child: Icon(
+                        Icons.filter_alt,
+                        color: MyColors.kSecondaryColor,
+                        size: 30.h,
+                      )),
+                    ),
+                  ]),
             ),
-            Text("Search your flavor", style: poppinsStyle)
-          ]),
+          ),
         )
       ],
     );
