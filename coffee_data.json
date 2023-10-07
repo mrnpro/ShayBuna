@@ -1,6 +1,7 @@
 {
     "coffee_data": [
         {
+            "pid": "e4af0b9f-9b3f-4b7a-96a0-4e7f3c4a2f7a",
             "title": "Espresso",
             "price": "2.99",
             "category": "Hot Drinks",
@@ -9,6 +10,7 @@
             "hasMilk": false
         },
         {
+            "pid": "e6c15db4-8f58-4d8f-9e9d-1e421bbba226",
             "title": "Cappuccino",
             "price": "3.49",
             "category": "Hot Drinks",
@@ -17,6 +19,7 @@
             "hasMilk": true
         },
         {
+            "pid": "9e0c7afd-45e6-4f56-bb96-4a7b6f21d9d3",
             "title": "Latte",
             "price": "3.99",
             "category": "Hot Drinks",
@@ -25,6 +28,7 @@
             "hasMilk": true
         },
         {
+            "pid": "7b4c32ae-1e5f-4d7e-a2b3-0b734f3c7e0b",
             "title": "Black Coffee",
             "price": "2.49",
             "category": "Cold Drinks",
@@ -33,14 +37,18 @@
             "hasMilk": false
         },
         {
+            "pid": "f85b7de9-5d7c-4ff8-ba1f-9bcf0f0db6a1",
             "title": "Mocha",
             "price": "4.29",
             "category": "Hot Drinks",
             "description": "Espresso with steamed milk, chocolate, and whipped cream.",
             "imagePath": "assets/mocha.jpg",
-            "hasMilk": true
+            "hasMilk": true,
+            "discountText": "Holiday's 25% disount",
+            "hasDiscount": true
         },
         {
+            "pid": "1a5f8e9b-2a37-4f7d-9f9f-0bfb1e8c6d81",
             "title": "Iced Coffee",
             "price": "3.99",
             "category": "Cold Drinks",
@@ -49,6 +57,7 @@
             "hasMilk": false
         },
         {
+            "pid": "c8d726f3-5e0e-4e84-96e3-0a207b2a8e72",
             "title": "Caramel Macchiato",
             "price": "4.49",
             "category": "Hot Drinks",
@@ -57,6 +66,7 @@
             "hasMilk": true
         },
         {
+            "pid": "8f9e0c12-25e6-4b88-98c1-7e7e0b4f5c9d",
             "title": "Iced Mocha",
             "price": "4.99",
             "category": "Specialty Coffee",
@@ -65,25 +75,36 @@
             "hasMilk": true
         },
         {
+            "pid": "0a7c6d5e-43e6-4f7a-8b92-5c8f1b9e7d4c",
             "title": "Chai Latte",
             "price": "3.79",
             "category": "Specialty Coffee",
             "description": "Spiced tea with steamed milk.",
             "imagePath": "assets/chai_latte.jpg",
-            "hasMilk": true
+            "hasMilk": true,
+            "discountText": "10 % discount",
+            "hasDiscount": true
         },
         {
+            "pid": "3d6f7e8a-1e2b-4f9c-8d7a-6b2c1a0d9e8f",
             "title": "Iced Tea",
             "price": "2.79",
             "category": "Specialty Coffee",
-            "description": "Chilled tea served over ice cubes.",
-            "imagePath": "assets/iced_tea.jpg",
-            "hasMilk": false
+            "description": "Spiced tea with steamed milk.",
+            "imagePath": "assets/chai_latte.jpg",
+            "hasMilk": true,
+            "discountText": "10 % discount",
+            "hasDiscount": true
         }
     ],
     "categories": [
         "Hot Drinks",
         "Cold Drinks",
         "Specialty Coffee"
+    ],
+    "special_coffee_data": [
+        "0a7c6d5e-43e6-4f7a-8b92-5c8f1b9e7d4c",
+        "3d6f7e8a-1e2b-4f9c-8d7a-6b2c1a0d9e8f",
+        "f85b7de9-5d7c-4ff8-ba1f-9bcf0f0db6a1"
     ]
 }
