@@ -4,7 +4,6 @@ import 'package:coffee_shop/core/providers/general_providers.dart';
 import 'package:coffee_shop/data/CoffeeData/coffee_data.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../Models/coffee_model.dart';
