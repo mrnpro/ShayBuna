@@ -2,11 +2,12 @@ import 'dart:convert';
 
 import 'package:coffee_shop/core/providers/general_providers.dart';
 import 'package:coffee_shop/data/CoffeeData/coffee_data.dart';
-import 'package:coffee_shop/data/Models/coffee_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../../Models/coffee_model.dart';
 
 final coffeeDataProvider =
     Provider<CoffeeData>((ref) => CoffeeDataImpl(ref: ref));
@@ -19,7 +20,7 @@ class CoffeeDataImpl implements CoffeeData {
   @override
   Future<Either<String, List<CoffeeModel>>> getCoffees() async {
     try {
-      final reference = _ref.read(firebaseDatabase).ref();
+      final reference = _ref.read(firebaseDatabaseProvider).ref();
 
       final firebaseCoffeeDatas = await reference.child('coffee_data').get();
       final coffeeDatas = <CoffeeModel>[];
@@ -39,7 +40,7 @@ class CoffeeDataImpl implements CoffeeData {
   @override
   Future<Either<String, List<String>>> getCategories() async {
     try {
-      final reference = _ref.read(firebaseDatabase).ref('categories');
+      final reference = _ref.read(firebaseDatabaseProvider).ref('categories');
       final firebaseCoffeeCategories = await reference.get();
       final categories = <String>[];
 
