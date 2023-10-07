@@ -15,7 +15,7 @@ class CoffeeController extends StateNotifier<CoffeeState> {
   CoffeeController({required Ref ref})
       : _ref = ref,
         super(CoffeeState.initial());
-  void fetchCoffee({String category = 'All'}) async {
+  Future<void> fetchCoffee({String category = 'All'}) async {
     state = CoffeeState.loading();
     // check if the category is ALL , then return all the datas fetched from the server
     if (category == "All") {

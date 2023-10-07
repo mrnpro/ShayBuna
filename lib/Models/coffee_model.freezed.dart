@@ -26,7 +26,7 @@ mixin _$CoffeeModel {
   String get description => throw _privateConstructorUsedError;
   String get imagePath => throw _privateConstructorUsedError;
   bool get hasMilk => throw _privateConstructorUsedError;
-  String? get discount => throw _privateConstructorUsedError;
+  String? get discountText => throw _privateConstructorUsedError;
   bool? get hasDiscount => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -48,7 +48,7 @@ abstract class $CoffeeModelCopyWith<$Res> {
       String description,
       String imagePath,
       bool hasMilk,
-      String? discount,
+      String? discountText,
       bool? hasDiscount});
 }
 
@@ -71,7 +71,7 @@ class _$CoffeeModelCopyWithImpl<$Res, $Val extends CoffeeModel>
     Object? description = null,
     Object? imagePath = null,
     Object? hasMilk = null,
-    Object? discount = freezed,
+    Object? discountText = freezed,
     Object? hasDiscount = freezed,
   }) {
     return _then(_value.copyWith(
@@ -99,9 +99,9 @@ class _$CoffeeModelCopyWithImpl<$Res, $Val extends CoffeeModel>
           ? _value.hasMilk
           : hasMilk // ignore: cast_nullable_to_non_nullable
               as bool,
-      discount: freezed == discount
-          ? _value.discount
-          : discount // ignore: cast_nullable_to_non_nullable
+      discountText: freezed == discountText
+          ? _value.discountText
+          : discountText // ignore: cast_nullable_to_non_nullable
               as String?,
       hasDiscount: freezed == hasDiscount
           ? _value.hasDiscount
@@ -126,7 +126,7 @@ abstract class _$$CoffeeModelImplCopyWith<$Res>
       String description,
       String imagePath,
       bool hasMilk,
-      String? discount,
+      String? discountText,
       bool? hasDiscount});
 }
 
@@ -147,7 +147,7 @@ class __$$CoffeeModelImplCopyWithImpl<$Res>
     Object? description = null,
     Object? imagePath = null,
     Object? hasMilk = null,
-    Object? discount = freezed,
+    Object? discountText = freezed,
     Object? hasDiscount = freezed,
   }) {
     return _then(_$CoffeeModelImpl(
@@ -175,9 +175,9 @@ class __$$CoffeeModelImplCopyWithImpl<$Res>
           ? _value.hasMilk
           : hasMilk // ignore: cast_nullable_to_non_nullable
               as bool,
-      discount: freezed == discount
-          ? _value.discount
-          : discount // ignore: cast_nullable_to_non_nullable
+      discountText: freezed == discountText
+          ? _value.discountText
+          : discountText // ignore: cast_nullable_to_non_nullable
               as String?,
       hasDiscount: freezed == hasDiscount
           ? _value.hasDiscount
@@ -197,7 +197,7 @@ class _$CoffeeModelImpl with DiagnosticableTreeMixin implements _CoffeeModel {
       required this.description,
       required this.imagePath,
       required this.hasMilk,
-      this.discount,
+      this.discountText,
       this.hasDiscount});
 
   factory _$CoffeeModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -216,13 +216,13 @@ class _$CoffeeModelImpl with DiagnosticableTreeMixin implements _CoffeeModel {
   @override
   final bool hasMilk;
   @override
-  final String? discount;
+  final String? discountText;
   @override
   final bool? hasDiscount;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'CoffeeModel(title: $title, price: $price, category: $category, description: $description, imagePath: $imagePath, hasMilk: $hasMilk, discount: $discount, hasDiscount: $hasDiscount)';
+    return 'CoffeeModel(title: $title, price: $price, category: $category, description: $description, imagePath: $imagePath, hasMilk: $hasMilk, discountText: $discountText, hasDiscount: $hasDiscount)';
   }
 
   @override
@@ -236,7 +236,7 @@ class _$CoffeeModelImpl with DiagnosticableTreeMixin implements _CoffeeModel {
       ..add(DiagnosticsProperty('description', description))
       ..add(DiagnosticsProperty('imagePath', imagePath))
       ..add(DiagnosticsProperty('hasMilk', hasMilk))
-      ..add(DiagnosticsProperty('discount', discount))
+      ..add(DiagnosticsProperty('discountText', discountText))
       ..add(DiagnosticsProperty('hasDiscount', hasDiscount));
   }
 
@@ -254,8 +254,8 @@ class _$CoffeeModelImpl with DiagnosticableTreeMixin implements _CoffeeModel {
             (identical(other.imagePath, imagePath) ||
                 other.imagePath == imagePath) &&
             (identical(other.hasMilk, hasMilk) || other.hasMilk == hasMilk) &&
-            (identical(other.discount, discount) ||
-                other.discount == discount) &&
+            (identical(other.discountText, discountText) ||
+                other.discountText == discountText) &&
             (identical(other.hasDiscount, hasDiscount) ||
                 other.hasDiscount == hasDiscount));
   }
@@ -263,7 +263,7 @@ class _$CoffeeModelImpl with DiagnosticableTreeMixin implements _CoffeeModel {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, title, price, category,
-      description, imagePath, hasMilk, discount, hasDiscount);
+      description, imagePath, hasMilk, discountText, hasDiscount);
 
   @JsonKey(ignore: true)
   @override
@@ -287,7 +287,7 @@ abstract class _CoffeeModel implements CoffeeModel {
       required final String description,
       required final String imagePath,
       required final bool hasMilk,
-      final String? discount,
+      final String? discountText,
       final bool? hasDiscount}) = _$CoffeeModelImpl;
 
   factory _CoffeeModel.fromJson(Map<String, dynamic> json) =
@@ -306,7 +306,7 @@ abstract class _CoffeeModel implements CoffeeModel {
   @override
   bool get hasMilk;
   @override
-  String? get discount;
+  String? get discountText;
   @override
   bool? get hasDiscount;
   @override
