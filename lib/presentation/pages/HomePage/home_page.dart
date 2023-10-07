@@ -1,14 +1,15 @@
 import 'package:coffee_shop/core/constants/assets.dart';
 import 'package:coffee_shop/core/constants/colors.dart';
 import 'package:coffee_shop/core/constants/text_styles.dart';
+import 'package:coffee_shop/presentation/controllers/CoffeeController/coffee_category_controller.dart';
+import 'package:coffee_shop/presentation/controllers/CoffeeController/coffee_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider/provider.dart';
-
-import '../../controllers/coffees_data_controller.dart';
 import '../DetailPage/detail_page.dart';
 
 import 'Components/choice_chips.dart';
@@ -44,7 +45,7 @@ class _HomePageState extends State<HomePage> {
             child: SingleChildScrollView(
               child: Column(children: [
                 _shaybunaLogo(),
-                _searchFlavor(size: size, poppinsStyle: poppinsStyle),
+                _SearchFlavor(size: size, poppinsStyle: poppinsStyle),
                 _CategoryChoice(
                   size: size,
                   poppinsStyle: poppinsStyle,
@@ -82,31 +83,42 @@ class _HomePageState extends State<HomePage> {
 
   _categories() {
     return SingleChildScrollView(
-      padding: EdgeInsets.zero,
-      scrollDirection: Axis.horizontal,
-      child: Consumer<CoffeeDataController>(
-        builder: (context, controller, child) {
-          return Row(
-            children: controller.coffeeData
-                .map(
-                  (e) => CoffeeCard(
-                      coffeeModel: e,
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => DetailPage(
-                                      coffeeModel: e,
-                                    )));
-                      },
-                      mochiyPopOneStyle: mochiyPopOneStyle,
-                      poppinsStyle: poppinsStyle),
-                )
-                .toList(),
-          );
-        },
-      ),
-    );
+        padding: EdgeInsets.zero,
+        clipBehavior: Clip.none,
+        scrollDirection: Axis.horizontal,
+        child: HookConsumer(
+          builder: (context, ref, child) {
+            final isLoading = ref
+                .watch(coffeeNotifierProvider)
+                .maybeWhen(orElse: () => false, loading: () => true);
+            final data = ref.watch(coffeeNotifierProvider).maybeWhen(
+                  orElse: () => null,
+                  loaded: (coffees) => coffees,
+                );
+
+            if (isLoading) {
+              return const CircularProgressIndicator();
+            }
+            return Row(
+              children: data!
+                  .map(
+                    (e) => CoffeeCard(
+                        coffeeModel: e,
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DetailPage(
+                                        coffeeModel: e,
+                                      )));
+                        },
+                        mochiyPopOneStyle: mochiyPopOneStyle,
+                        poppinsStyle: poppinsStyle),
+                  )
+                  .toList(),
+            );
+          },
+        ));
   }
 
   Column _shaybunaLogo() {
@@ -143,52 +155,73 @@ class _CategoryChoiceState extends State<_CategoryChoice> {
         const SizedBox(
           height: 50,
         ),
-        Consumer<CoffeeDataController>(builder: (context, controller, child) {
-          return SizedBox(
-            height: 34,
-            width: widget.size.width,
-            child: ListView.builder(
-                itemCount: controller.allCategories.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  if (index == controller.getSelectedCategoryIndex) {
+        HookConsumer(
+          builder: (context, ref, child) {
+            // send request ,
+            final currentSelectedIndex = ref.watch(categoryIndexStateProvider);
+
+            final isLoading = ref.watch(cofeeCategoryNotifier).maybeWhen(
+                  orElse: () => false,
+                  loading: () => true,
+                );
+            final data = ref.watch(cofeeCategoryNotifier).maybeWhen(
+                  orElse: () => null,
+                  data: (coffees) => coffees,
+                );
+            if (isLoading) {
+              return SizedBox(
+                height: 34,
+                width: widget.size.width,
+                child: ListView.builder(
+                    itemCount: 5,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return CustomChoiceChip(
+                          isActive: false,
+                          chipText: "",
+                          poppinsStyle: widget.poppinsStyle,
+                          onPressed: () {});
+                    }),
+              );
+            }
+            return SizedBox(
+              height: 34,
+              width: widget.size.width,
+              child: ListView.builder(
+                  itemCount: data!.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    if (index == currentSelectedIndex) {
+                      return CustomChoiceChip(
+                          isActive: true,
+                          chipText: data[index],
+                          poppinsStyle: widget.poppinsStyle,
+                          onPressed: () {});
+                    }
+
                     return CustomChoiceChip(
-                        isActive: true,
-                        chipText: controller.allCategories[index],
+                        isActive: false,
+                        chipText: data[index],
                         poppinsStyle: widget.poppinsStyle,
                         onPressed: () {
-                          controller.changeCurrentCategoryIndex(
-                              currentIndex: index);
-                          controller.fetchData(
-                              categoryName: controller.allCategories[index]);
+                          print(index);
+                          ref.read(categoryIndexStateProvider.notifier).state =
+                              index;
+                          ref
+                              .read(coffeeNotifierProvider.notifier)
+                              .fetchCoffee(category: data[index]);
                         });
-                  }
-
-                  return CustomChoiceChip(
-                      isActive: false,
-                      chipText: controller.allCategories[index],
-                      poppinsStyle: widget.poppinsStyle,
-                      onPressed: () {
-                        controller.changeCurrentCategoryIndex(
-                            currentIndex: index);
-                        controller.fetchData(
-                            categoryName: controller.allCategories[index]);
-                      });
-                }),
-          );
-
-          // NotActiveChip(poppinsStyle: poppinsStyle, onPressed: () {}),
-          // NotActiveChip(poppinsStyle: poppinsStyle, onPressed: () {}),
-          // NotActiveChip(poppinsStyle: poppinsStyle, onPressed: () {}),
-          // NotActiveChip(poppinsStyle: poppinsStyle, onPressed: () {}),
-        }),
+                  }),
+            );
+          },
+        ),
       ],
     );
   }
 }
 
-class _searchFlavor extends StatelessWidget {
-  const _searchFlavor({
+class _SearchFlavor extends StatelessWidget {
+  const _SearchFlavor({
     required this.size,
     required this.poppinsStyle,
   });
