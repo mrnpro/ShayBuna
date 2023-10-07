@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../../../core/constants/assets.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/common_widgets.dart';
-import '../../../../data/CoffeeData/coffee_model.dart';
+import '../../../../data/Models/coffee_model.dart';
 
 class CoffeeCard extends StatelessWidget {
   const CoffeeCard({
