@@ -3,7 +3,7 @@ import 'package:coffee_shop/data/CoffeeData/coffee_data_impl.dart';
 import 'package:coffee_shop/presentation/controllers/CoffeeController/coffee_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../data/Models/coffee_model.dart';
+import '../../../Models/coffee_model.dart';
 
 final coffeeNotifierProvider =
     StateNotifierProvider<CoffeeController, CoffeeState>(
