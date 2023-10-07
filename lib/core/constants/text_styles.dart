@@ -6,7 +6,7 @@ import 'colors.dart';
 
 final TextStyle poppinsStyle = GoogleFonts.poppins(
     fontSize: 14, fontWeight: FontWeight.w400, color: MyColors.kSecondaryColor);
-final TextStyle mochiyPopOneStyle = GoogleFonts.mochiyPopOne(
+final TextStyle mochiyPopOneStyle = GoogleFonts.poppins(
     fontWeight: FontWeight.bold,
     fontSize: 26.sp,
     color: MyColors.kPrimaryColor);
