@@ -125,7 +125,7 @@ class _HomePageState extends State<HomePage> {
                   alignment: Alignment.centerLeft,
                   child: Skeleton(
                     margin: EdgeInsets.only(top: 56, left: 10, bottom: 5),
-                    height: 10,
+                    height: 20,
                     width: 100,
                   ),
                 ),
