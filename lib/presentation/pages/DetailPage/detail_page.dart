@@ -1,13 +1,20 @@
 import 'package:coffee_shop/core/constants/assets.dart';
+import 'package:coffee_shop/presentation/controllers/OrdersController/orders_controller.dart';
+import 'package:coffee_shop/presentation/controllers/OrdersController/orders_state.dart';
+import 'package:coffee_shop/presentation/pages/DetailPage/coffee_size_model.dart';
+import 'package:coffee_shop/presentation/pages/PaymentPages/payment_error_screen.dart';
+import 'package:coffee_shop/presentation/pages/PaymentPages/payment_success_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../Models/coffee_model.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/common_widgets.dart';
 import '../../../core/constants/text_styles.dart';
+
 import 'circle_animated_image.dart';
 
 class DetailPage extends StatefulWidget {
@@ -18,6 +25,8 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
+  String coffeeSize = "M";
+  int selectedIndex = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,29 +56,76 @@ class _DetailPageState extends State<DetailPage> {
     );
   }
 
-  Column _getButton() {
-    return Column(
-      children: [
-        const SizedBox(height: 48),
-        SizedBox(
-          width: 361,
-          height: 60,
-          child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: MyColors.kSecondaryColor),
-              onPressed: () {},
-              child:
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Text("Get Now",
-                    style: mochiyPopOneStyle.copyWith(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400,
-                    )),
-                SvgPicture.asset(Assets.assetsBtnDecoratorLogo)
-              ])),
-        )
-      ],
-    );
+  _getButton() {
+    return HookConsumer(builder: (context, ref, child) {
+      ref.listen(ordersStateNotifierProvider, (previous, next) {
+        next.maybeWhen(
+            orElse: () {},
+            error: (error) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PaymentErrorScreen(
+                        errorMessage:
+                            error ?? "something went wrong please try later"),
+                  ));
+            },
+            orderPlaced: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const PaymentSuccessScreen()));
+            });
+      });
+      final isLoading = ref
+          .watch(ordersStateNotifierProvider)
+          .maybeWhen(orElse: () => false, loading: () => true);
+
+      return Column(
+        children: [
+          const SizedBox(height: 48),
+          if (isLoading)
+            SizedBox(
+              width: 361,
+              height: 60,
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: MyColors.kSecondaryColor),
+                  onPressed: () {},
+                  child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircularProgressIndicator(),
+                      ])),
+            )
+          else
+            SizedBox(
+              width: 361,
+              height: 60,
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: MyColors.kSecondaryColor),
+                  onPressed: () {
+                    ref.read(ordersStateNotifierProvider.notifier).placeOrder(
+                        context: context,
+                        price: widget.coffeeModel.price,
+                        pid: widget.coffeeModel.pid,
+                        coffeeSize: coffeeSize);
+                  },
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Get Now",
+                            style: mochiyPopOneStyle.copyWith(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w400,
+                            )),
+                        SvgPicture.asset(Assets.assetsBtnDecoratorLogo)
+                      ])),
+            )
+        ],
+      );
+    });
   }
 
   Column _coffeeDescription(String description) {
@@ -143,47 +199,38 @@ class _DetailPageState extends State<DetailPage> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Container(
-                width: 41,
-                height: 37,
-                decoration: BoxDecoration(
-                  border: Border.all(color: MyColors.kPrimaryColor),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Center(
-                    child: Text("L",
-                        style: mochiyPopOneStyle.copyWith(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400,
-                        )))),
-            Container(
-                width: 41,
-                height: 37,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: MyColors.kPrimaryColor),
-                child: Center(
-                  child: Text("M",
-                      style: mochiyPopOneStyle.copyWith(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400,
-                          color: MyColors.kSecondaryColor)),
-                )),
-            Container(
-                width: 41,
-                height: 37,
-                decoration: BoxDecoration(
-                  border: Border.all(color: MyColors.kPrimaryColor),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Center(
-                    child: Text("S",
-                        style: mochiyPopOneStyle.copyWith(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400,
-                        )))),
+            for (int index = 0; index < coffeeSizeList.length; index++)
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedIndex = index;
+
+                    coffeeSize = coffeeSizeList[index].size;
+                  });
+                },
+                child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 500),
+                    width: 41,
+                    height: 37,
+                    decoration: BoxDecoration(
+                      color: selectedIndex == index
+                          ? MyColors.kPrimaryColor
+                          : null,
+                      border: Border.all(color: MyColors.kPrimaryColor),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Center(
+                        child: Text(coffeeSizeList[index].size,
+                            style: mochiyPopOneStyle.copyWith(
+                              color: selectedIndex == index
+                                  ? MyColors.kSecondaryColor
+                                  : null,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w400,
+                            )))),
+              ),
           ],
-        ),
+        )
       ]),
     );
   }
