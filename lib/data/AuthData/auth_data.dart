@@ -22,7 +22,6 @@ class AuthDataImpl implements AuthData {
   final Ref _ref;
 
   AuthDataImpl({required Ref ref}) : _ref = ref;
-  // use for reading other providers
 
   @override
   Future<Either<String, User>> signIn(
