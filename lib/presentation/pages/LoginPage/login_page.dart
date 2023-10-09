@@ -13,6 +13,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../core/constants/text_styles.dart';
+import '../../bottom_nav.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -54,7 +55,6 @@ class _LoginPageState extends State<LoginPage> {
 
   void _onEmailFocusChange() {
     setState(() {
-      print("sth");
       _emailHasFocus = _emailFocus.hasFocus;
     });
   }
@@ -135,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(children: [
-                  _arrowBack(context),
+                  //_arrowBack(context),
                   _shaybunaLogo(),
                   _emailAdressField(size),
                   _passwordField(size),
@@ -220,7 +220,7 @@ class _LoginPageState extends State<LoginPage> {
             orElse: () {},
             authenticated: (user) {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const HomePage()));
+                  MaterialPageRoute(builder: (context) => const BottomNav()));
             },
             error: (message) {
               _addError([message]);
