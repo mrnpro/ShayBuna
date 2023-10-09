@@ -1,8 +1,10 @@
+import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
 import 'package:coffee_shop/core/constants/assets.dart';
 import 'package:coffee_shop/core/constants/colors.dart';
 import 'package:coffee_shop/core/constants/text_styles.dart';
 import 'package:coffee_shop/presentation/controllers/CoffeeController/coffee_category_controller.dart';
 import 'package:coffee_shop/presentation/controllers/CoffeeController/coffee_controller.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -34,8 +36,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: MyColors.kPrimaryColor, body: _body(context));
+    return _body(context);
   }
 
   _body(BuildContext context) {
