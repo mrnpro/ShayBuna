@@ -8,6 +8,7 @@ part of 'coffee_model.dart';
 
 _$CoffeeModelImpl _$$CoffeeModelImplFromJson(Map<String, dynamic> json) =>
     _$CoffeeModelImpl(
+      pid: json['pid'] as String,
       title: json['title'] as String,
       price: json['price'] as String,
       category: json['category'] as String,
@@ -20,6 +21,7 @@ _$CoffeeModelImpl _$$CoffeeModelImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$CoffeeModelImplToJson(_$CoffeeModelImpl instance) =>
     <String, dynamic>{
+      'pid': instance.pid,
       'title': instance.title,
       'price': instance.price,
       'category': instance.category,
