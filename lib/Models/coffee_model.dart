@@ -6,6 +6,7 @@ part 'coffee_model.g.dart';
 @freezed
 class CoffeeModel with _$CoffeeModel {
   const factory CoffeeModel({
+    required String pid,
     required String title,
     required String price,
     required String category,

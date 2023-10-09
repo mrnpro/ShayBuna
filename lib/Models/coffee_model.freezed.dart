@@ -20,6 +20,7 @@ CoffeeModel _$CoffeeModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$CoffeeModel {
+  String get pid => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get price => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
@@ -42,7 +43,8 @@ abstract class $CoffeeModelCopyWith<$Res> {
       _$CoffeeModelCopyWithImpl<$Res, CoffeeModel>;
   @useResult
   $Res call(
-      {String title,
+      {String pid,
+      String title,
       String price,
       String category,
       String description,
@@ -65,6 +67,7 @@ class _$CoffeeModelCopyWithImpl<$Res, $Val extends CoffeeModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? pid = null,
     Object? title = null,
     Object? price = null,
     Object? category = null,
@@ -75,6 +78,10 @@ class _$CoffeeModelCopyWithImpl<$Res, $Val extends CoffeeModel>
     Object? hasDiscount = freezed,
   }) {
     return _then(_value.copyWith(
+      pid: null == pid
+          ? _value.pid
+          : pid // ignore: cast_nullable_to_non_nullable
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -120,7 +127,8 @@ abstract class _$$CoffeeModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String title,
+      {String pid,
+      String title,
       String price,
       String category,
       String description,
@@ -141,6 +149,7 @@ class __$$CoffeeModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? pid = null,
     Object? title = null,
     Object? price = null,
     Object? category = null,
@@ -151,6 +160,10 @@ class __$$CoffeeModelImplCopyWithImpl<$Res>
     Object? hasDiscount = freezed,
   }) {
     return _then(_$CoffeeModelImpl(
+      pid: null == pid
+          ? _value.pid
+          : pid // ignore: cast_nullable_to_non_nullable
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -191,7 +204,8 @@ class __$$CoffeeModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$CoffeeModelImpl with DiagnosticableTreeMixin implements _CoffeeModel {
   const _$CoffeeModelImpl(
-      {required this.title,
+      {required this.pid,
+      required this.title,
       required this.price,
       required this.category,
       required this.description,
@@ -203,6 +217,8 @@ class _$CoffeeModelImpl with DiagnosticableTreeMixin implements _CoffeeModel {
   factory _$CoffeeModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$CoffeeModelImplFromJson(json);
 
+  @override
+  final String pid;
   @override
   final String title;
   @override
@@ -222,7 +238,7 @@ class _$CoffeeModelImpl with DiagnosticableTreeMixin implements _CoffeeModel {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'CoffeeModel(title: $title, price: $price, category: $category, description: $description, imagePath: $imagePath, hasMilk: $hasMilk, discountText: $discountText, hasDiscount: $hasDiscount)';
+    return 'CoffeeModel(pid: $pid, title: $title, price: $price, category: $category, description: $description, imagePath: $imagePath, hasMilk: $hasMilk, discountText: $discountText, hasDiscount: $hasDiscount)';
   }
 
   @override
@@ -230,6 +246,7 @@ class _$CoffeeModelImpl with DiagnosticableTreeMixin implements _CoffeeModel {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'CoffeeModel'))
+      ..add(DiagnosticsProperty('pid', pid))
       ..add(DiagnosticsProperty('title', title))
       ..add(DiagnosticsProperty('price', price))
       ..add(DiagnosticsProperty('category', category))
@@ -245,6 +262,7 @@ class _$CoffeeModelImpl with DiagnosticableTreeMixin implements _CoffeeModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CoffeeModelImpl &&
+            (identical(other.pid, pid) || other.pid == pid) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.price, price) || other.price == price) &&
             (identical(other.category, category) ||
@@ -262,7 +280,7 @@ class _$CoffeeModelImpl with DiagnosticableTreeMixin implements _CoffeeModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, title, price, category,
+  int get hashCode => Object.hash(runtimeType, pid, title, price, category,
       description, imagePath, hasMilk, discountText, hasDiscount);
 
   @JsonKey(ignore: true)
@@ -281,7 +299,8 @@ class _$CoffeeModelImpl with DiagnosticableTreeMixin implements _CoffeeModel {
 
 abstract class _CoffeeModel implements CoffeeModel {
   const factory _CoffeeModel(
-      {required final String title,
+      {required final String pid,
+      required final String title,
       required final String price,
       required final String category,
       required final String description,
@@ -293,6 +312,8 @@ abstract class _CoffeeModel implements CoffeeModel {
   factory _CoffeeModel.fromJson(Map<String, dynamic> json) =
       _$CoffeeModelImpl.fromJson;
 
+  @override
+  String get pid;
   @override
   String get title;
   @override
