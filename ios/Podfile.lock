@@ -7,6 +7,11 @@ PODS:
   - Firebase/Database (10.15.0):
     - Firebase/CoreOnly
     - FirebaseDatabase (~> 10.15.0)
+  - firebase_app_check (0.2.0-1):
+    - Firebase/CoreOnly (~> 10.15.0)
+    - firebase_core
+    - FirebaseAppCheck (~> 10.15.0-beta)
+    - Flutter
   - firebase_auth (4.10.1):
     - Firebase/Auth (= 10.15.0)
     - firebase_core
@@ -18,6 +23,10 @@ PODS:
     - Firebase/Database (= 10.15.0)
     - firebase_core
     - Flutter
+  - FirebaseAppCheck (10.15.0):
+    - FirebaseCore (~> 10.0)
+    - GoogleUtilities/Environment (~> 7.8)
+    - PromisesObjC (~> 2.1)
   - FirebaseAppCheckInterop (10.15.0)
   - FirebaseAuth (10.15.0):
     - FirebaseAppCheckInterop (~> 10.0)
@@ -36,6 +45,13 @@ PODS:
     - FirebaseCore (~> 10.0)
     - leveldb-library (~> 1.22)
   - Flutter (1.0.0)
+  - flutter_inappwebview (0.0.1):
+    - Flutter
+    - flutter_inappwebview/Core (= 0.0.1)
+    - OrderedSet (~> 5.0)
+  - flutter_inappwebview/Core (0.0.1):
+    - Flutter
+    - OrderedSet (~> 5.0)
   - GoogleUtilities/AppDelegateSwizzler (7.11.5):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -53,6 +69,7 @@ PODS:
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (3.1.1)
   - leveldb-library (1.22.2)
+  - OrderedSet (5.0.0)
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -63,16 +80,19 @@ PODS:
     - FlutterMacOS
 
 DEPENDENCIES:
+  - firebase_app_check (from `.symlinks/plugins/firebase_app_check/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_database (from `.symlinks/plugins/firebase_database/ios`)
   - Flutter (from `Flutter`)
+  - flutter_inappwebview (from `.symlinks/plugins/flutter_inappwebview/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
 
 SPEC REPOS:
   trunk:
     - Firebase
+    - FirebaseAppCheck
     - FirebaseAppCheckInterop
     - FirebaseAuth
     - FirebaseCore
@@ -81,10 +101,13 @@ SPEC REPOS:
     - GoogleUtilities
     - GTMSessionFetcher
     - leveldb-library
+    - OrderedSet
     - PromisesObjC
     - RecaptchaInterop
 
 EXTERNAL SOURCES:
+  firebase_app_check:
+    :path: ".symlinks/plugins/firebase_app_check/ios"
   firebase_auth:
     :path: ".symlinks/plugins/firebase_auth/ios"
   firebase_core:
@@ -93,6 +116,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_database/ios"
   Flutter:
     :path: Flutter
+  flutter_inappwebview:
+    :path: ".symlinks/plugins/flutter_inappwebview/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
   shared_preferences_foundation:
@@ -100,18 +125,22 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Firebase: 66043bd4579e5b73811f96829c694c7af8d67435
+  firebase_app_check: d6e8557b8540393638729de97a54de59f65ccac0
   firebase_auth: b62e99e6ece589afe88ebe8919eb9563b52c384c
   firebase_core: 28e84c2a4fcf6a50ef83f47b145ded8c1fa331e4
   firebase_database: 1af9fdbaef52dd3be040be031db086cd2b450133
+  FirebaseAppCheck: 66eea1c882cddd1bce9d92a0a7efd596f7204782
   FirebaseAppCheckInterop: a8c555b1c2db1d9445e6c3a08a848167ddb7eb51
   FirebaseAuth: a55ec5f7f8a5b1c2dd750235c1bb419bfb642445
   FirebaseCore: 2cec518b43635f96afe7ac3a9c513e47558abd2e
   FirebaseCoreInternal: 2f4bee5ed00301b5e56da0849268797a2dd31fb4
   FirebaseDatabase: f93f1481c7e9e3d77af960cdff82a408d37693e6
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  flutter_inappwebview: 3d32228f1304635e7c028b0d4252937730bbc6cf
   GoogleUtilities: 13e2c67ede716b8741c7989e26893d151b2b2084
   GTMSessionFetcher: e8647203b65cee28c5f73d0f473d096653945e72
   leveldb-library: f03246171cce0484482ec291f88b6d563699ee06
+  OrderedSet: aaeb196f7fef5a9edf55d89760da9176ad40b93c
   path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
