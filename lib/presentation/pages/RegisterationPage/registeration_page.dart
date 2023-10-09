@@ -12,6 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../core/constants/text_styles.dart';
+import '../../bottom_nav.dart';
 
 class RegisterationPage extends StatefulWidget {
   const RegisterationPage({super.key});
@@ -229,7 +230,7 @@ class _RegisterationPageState extends State<RegisterationPage> {
             orElse: () {},
             authenticated: (user) {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const HomePage()));
+                  MaterialPageRoute(builder: (context) => const BottomNav()));
             },
             unauthenticated: (message) {
               //
