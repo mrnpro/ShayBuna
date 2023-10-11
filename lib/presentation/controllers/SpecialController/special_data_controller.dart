@@ -1,5 +1,5 @@
 import 'package:coffee_shop/Models/coffee_model.dart';
-import 'package:coffee_shop/data/SpecialData/special_data.dart';
+import 'package:coffee_shop/data/CoffeeData/coffee_data_impl.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final specialDataStateNotifierProvider =
@@ -14,8 +14,9 @@ class SpecialDataController
       : _ref = ref,
         super(const AsyncLoading());
   void fetchSpecials() async {
-    final response = await _ref.read(specialDataProvider).getSpecialData();
+    state = const AsyncValue.loading();
+    final response = await _ref.read(coffeeDataProvider).getSpecialData();
     state = response.fold(
-        (l) => AsyncError(l, StackTrace.current), (r) => AsyncData(r));
+        (error) => AsyncError(error, StackTrace.current), (r) => AsyncData(r));
   }
 }
