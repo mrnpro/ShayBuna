@@ -1,3 +1,4 @@
+import 'package:coffee_shop/core/Router/route_names.dart';
 import 'package:coffee_shop/core/constants/assets.dart';
 import 'package:coffee_shop/presentation/controllers/OrdersController/orders_controller.dart';
 import 'package:coffee_shop/presentation/controllers/OrdersController/orders_state.dart';
@@ -7,6 +8,7 @@ import 'package:coffee_shop/presentation/pages/PaymentPages/payment_success_scre
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -62,19 +64,11 @@ class _DetailPageState extends State<DetailPage> {
         next.maybeWhen(
             orElse: () {},
             error: (error) {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PaymentErrorScreen(
-                        errorMessage:
-                            error ?? "something went wrong please try later"),
-                  ));
+              context.go(RouteNames.paymentErrorPath,
+                  extra: error ?? "something went wrong please try later");
             },
             orderPlaced: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const PaymentSuccessScreen()));
+              context.push(RouteNames.paymentSuccessPath);
             });
       });
       final isLoading = ref
@@ -240,7 +234,7 @@ class _DetailPageState extends State<DetailPage> {
       alignment: Alignment.topLeft,
       child: InkWell(
         onTap: () {
-          Navigator.pop(context);
+          context.pop();
         },
         child: Container(
             width: 62,
