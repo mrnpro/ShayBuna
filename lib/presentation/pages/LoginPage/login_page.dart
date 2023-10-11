@@ -1,3 +1,4 @@
+import 'package:coffee_shop/core/Router/route_names.dart';
 import 'package:coffee_shop/core/constants/assets.dart';
 import 'package:coffee_shop/core/constants/colors.dart';
 import 'package:coffee_shop/core/validator/validators.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -66,13 +68,11 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _onForgotPasswordPressed() {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const ForgotPasswordPage()));
+    context.push(RouteNames.forgotPasswordPath);
   }
 
   void _onSignupPressed() {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const RegisterationPage()));
+    context.push(RouteNames.registerPath);
   }
 
   List<String> _errorList = [];
@@ -219,8 +219,7 @@ class _LoginPageState extends State<LoginPage> {
         next.maybeWhen(
             orElse: () {},
             authenticated: (user) {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const BottomNav()));
+              context.push(RouteNames.botomNavPath);
             },
             error: (message) {
               _addError([message]);
