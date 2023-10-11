@@ -1,4 +1,5 @@
 import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
+import 'package:coffee_shop/core/Router/route_names.dart';
 import 'package:coffee_shop/core/constants/assets.dart';
 import 'package:coffee_shop/core/constants/colors.dart';
 import 'package:coffee_shop/core/constants/text_styles.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../Models/coffee_model.dart';
@@ -84,7 +86,7 @@ class _HomePageState extends State<HomePage> {
         const SizedBox(
           height: 10,
         ),
-        Hero(tag: 'shay_buna_logo', child: SvgPicture.asset(Assets.assetsLogo)),
+        SvgPicture.asset(Assets.assetsLogo),
       ],
     );
   }
@@ -116,10 +118,8 @@ class _HomePageState extends State<HomePage> {
     return Column(
       children: [
         HookConsumer(builder: (context, ref, child) {
-          final isLoading = ref
-              .watch(specialDataStateNotifierProvider)
-              .maybeWhen(orElse: () => false, loading: () => true);
-          if (isLoading) {
+          return ref.watch(specialDataStateNotifierProvider).maybeWhen(
+              orElse: () {
             return Column(
               children: [
                 const Align(
@@ -145,17 +145,6 @@ class _HomePageState extends State<HomePage> {
                               vertical: 30, horizontal: 2),
                           width: size.width,
                           height: 113,
-                          // child: Row(
-                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          //   children: [
-                          //     const Text(""),
-                          //     SvgPicture.asset(
-                          //       Assets.assetsLogoDecorator,
-                          //       width: 20,
-                          //       height: 199,
-                          //     ),
-                          //   ],
-                          // ),
                         ),
                       ),
                     );
@@ -163,29 +152,48 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             );
-          }
-          return Column(children: [
-            _specialForYouText(),
-            SpecialForYouItem(size: size, poppinsStyle: poppinsStyle),
-            SpecialForYouItem(size: size, poppinsStyle: poppinsStyle),
-            SpecialForYouItem(size: size, poppinsStyle: poppinsStyle)
-          ]);
+          }, data: (data) {
+            return Column(children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 40, left: 10, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _specialForYouText(),
+                    IconButton(
+                        onPressed: () {
+                          ref
+                              .read(specialDataStateNotifierProvider.notifier)
+                              .fetchSpecials();
+                        },
+                        icon: const Icon(Icons.refresh))
+                  ],
+                ),
+              ),
+              ...data.map((coffee) {
+                return SpecialForYouItem(
+                    onPressed: () {
+                      context.push(RouteNames.coffeeDetailPath, extra: coffee);
+                    },
+                    coffeeModel: coffee,
+                    size: size,
+                    poppinsStyle: poppinsStyle);
+              })
+            ]);
+          });
         }),
       ],
     );
   }
 
-  Padding _specialForYouText() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 56, left: 10, bottom: 5),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: Text("Special for you ",
-            style: poppinsStyle.copyWith(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-            )),
-      ),
+  _specialForYouText() {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Text("Special for you ",
+          style: poppinsStyle.copyWith(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          )),
     );
   }
 
@@ -193,15 +201,10 @@ class _HomePageState extends State<HomePage> {
     return Row(
       children: data
           .map(
-            (e) => CoffeeCard(
-                coffeeModel: e,
+            (coffee) => CoffeeCard(
+                coffeeModel: coffee,
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => DetailPage(
-                                coffeeModel: e,
-                              )));
+                  context.push(RouteNames.coffeeDetailPath, extra: coffee);
                 },
                 mochiyPopOneStyle: mochiyPopOneStyle,
                 poppinsStyle: poppinsStyle),
@@ -350,11 +353,7 @@ class _SearchFlavor extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const SearchPage(),
-                ));
+            context.push(RouteNames.coffeeSearchPath);
           },
           child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 10),
