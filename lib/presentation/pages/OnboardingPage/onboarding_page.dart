@@ -1,15 +1,19 @@
+import 'package:coffee_shop/core/Router/route_names.dart';
 import 'package:coffee_shop/presentation/pages/HomePage/home_page.dart';
 import 'package:coffee_shop/presentation/pages/OnboardingPage/components/slider_page1.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../core/constants/assets.dart';
 import '../../../core/constants/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/constants/text_styles.dart';
+import '../../../data/LocalData/local_data_impl.dart';
 import '../LoginPage/login_page.dart';
 import 'components/slider_page2.dart';
 import 'components/slider_page3.dart';
@@ -37,12 +41,16 @@ class _OboardingPageState extends State<OboardingPage> {
     });
   }
 
-  void _onBtnPressed() {
+  void _onBtnPressed(WidgetRef ref) async {
     //
     if (pageIndex == 2) {
+      final localData = await ref.read(localDataProvider.future);
+
+      localData.write(key: 'firstime', value: true);
       // navigate to another screen
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const LoginPage()));
+      // ignore: use_build_context_synchronously
+      context.push(RouteNames.loginPath);
+
       return;
     }
     int nextPage = pageIndex + 1;
@@ -84,14 +92,18 @@ class _OboardingPageState extends State<OboardingPage> {
     return Column(
       children: [
         const SizedBox(height: 100),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-              backgroundColor: MyColors.kPrimaryColor, elevation: 3),
-          onPressed: _onBtnPressed,
-          child: Text(
-            pageIndex == 2 ? "Start" : "Next",
-            style: mochiyPopOneStyle.copyWith(
-                color: MyColors.kSecondaryColor, fontSize: 15),
+        HookConsumer(
+          builder: (context, ref, child) => ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                backgroundColor: MyColors.kPrimaryColor, elevation: 3),
+            onPressed: () {
+              _onBtnPressed(ref);
+            },
+            child: Text(
+              pageIndex == 2 ? "Start" : "Next",
+              style: mochiyPopOneStyle.copyWith(
+                  color: MyColors.kSecondaryColor, fontSize: 15),
+            ),
           ),
         ),
       ],
