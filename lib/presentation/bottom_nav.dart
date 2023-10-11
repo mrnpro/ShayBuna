@@ -71,7 +71,6 @@ class _BottomNavState extends State<BottomNav> {
   }
 
   _body(BuildContext context) {
-    Size size = MediaQuery.sizeOf(context);
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.dark,
       child: SafeArea(bottom: false, child: _getThePage()),
