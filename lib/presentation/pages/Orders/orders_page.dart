@@ -1,3 +1,5 @@
+import 'package:coffee_shop/Models/orders_model.dart';
+import 'package:coffee_shop/core/Components/skeleton.dart';
 import 'package:coffee_shop/presentation/controllers/OrdersController/orders_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -20,20 +22,53 @@ class OrdersPage extends ConsumerStatefulWidget {
 class _OrdersPageState extends ConsumerState<OrdersPage> {
   @override
   void initState() {
-    //ref.read(ordersStateNotifierProvider.notifier).getOrders();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        ref.read(ordersStateNotifierProvider.notifier).getOrders();
+      }
+    });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
-    return HookConsumer(
-        builder: (context, ref, child) => SingleChildScrollView(
-                child: Column(children: [
-              _appBar(size),
-              _order(size),
-              _order(size),
-            ])));
+
+    return Column(
+      children: [
+        _appBar(size),
+        SizedBox(
+          height: size.height / 1.3.h,
+          width: size.width,
+          child: ref.watch(ordersStateNotifierProvider).maybeWhen(orElse: () {
+            return _loading(size);
+          }, ordersFetched: (data) {
+            return _onData(data, size);
+          }),
+        ),
+      ],
+    );
+  }
+
+  ListView _onData(List<OrdersModel> data, Size size) {
+    return ListView.builder(
+      itemCount: data.length,
+      itemBuilder: (context, index) => _order(size,
+          price: "${data[index].price} ETB",
+          status: data[index].deliveryStatus,
+          title: "Capuccino"),
+    );
+  }
+
+  ListView _loading(Size size) {
+    return ListView.builder(
+      itemCount: 10,
+      itemBuilder: (context, index) => Skeleton(
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        width: size.width,
+        height: 113.h,
+      ),
+    );
   }
 
   Container _appBar(Size size) {
@@ -66,11 +101,11 @@ class _OrdersPageState extends ConsumerState<OrdersPage> {
         ));
   }
 
-  Container _order(Size size) {
+  Container _order(Size size, {String? title, String? price, String? status}) {
     return Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
         width: size.width,
-        height: 113,
+        height: 113.h,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(19),
             boxShadow: [kBoxShadow],
@@ -84,25 +119,25 @@ class _OrdersPageState extends ConsumerState<OrdersPage> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(left: 20),
-                  child: Text("Cappuccino",
+                  child: Text(title ?? "something",
                       style: poppinsStyle.copyWith(
-                          fontSize: 20,
+                          fontSize: 20.sp,
                           fontWeight: FontWeight.bold,
                           color: MyColors.kSecondaryColor)),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 20),
-                  child: Text("2ETB",
+                  child: Text(price ?? "0ETB",
                       style: poppinsStyle.copyWith(
-                          fontSize: 18,
+                          fontSize: 18.sp,
                           fontWeight: FontWeight.bold,
                           color: MyColors.kSecondaryColor)),
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 20),
-                  child: Text("pending",
+                Padding(
+                  padding: const EdgeInsets.only(left: 20),
+                  child: Text(status ?? "pending",
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 16.sp,
                         color: MyColors.kSecondaryColor,
                         fontWeight: FontWeight.normal,
                       )),
