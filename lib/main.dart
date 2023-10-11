@@ -1,4 +1,5 @@
 import 'package:chapa_unofficial/chapa_unofficial.dart';
+import 'package:coffee_shop/core/Router/my_route.dart';
 import 'package:coffee_shop/firebase_options.dart';
 import 'package:coffee_shop/presentation/pages/HomePage/home_page.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
@@ -10,7 +11,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'core/config/config.dart';
 import 'core/theme/my_theme.dart';
-import 'presentation/bottom_nav.dart';
+import 'presentation/pages/SplashPage/splash_page.dart';
 import 'presentation/pages/onboardingPage/onboarding_page.dart';
 
 void main() async {
@@ -26,9 +27,17 @@ void main() async {
   runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+// i have instanciated here b/c whenever hot reload is triggered the splash screen is poping up.
+final router = MyRouteConfig().getRouter;
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -36,11 +45,12 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       designSize: const Size(430.0, 932.0),
       builder: (_, child) {
-        return MaterialApp(
+        return MaterialApp.router(
+          routerConfig: router,
           debugShowCheckedModeBanner: false,
           title: 'Shay Buna',
           theme: MyTheme.lightTheme,
-          home: const OboardingPage(),
+
           // )
         );
       },
