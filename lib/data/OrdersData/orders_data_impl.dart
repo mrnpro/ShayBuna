@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:coffee_shop/Models/orders_model.dart';
-import 'package:coffee_shop/core/providers/general_providers.dart';
+import 'package:coffee_shop/riverpod_container.dart';
 import 'package:coffee_shop/data/OrdersData/orders_data.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -29,7 +29,6 @@ class OrdersDataImpl implements OrdersData {
       final result = await dbReference.child(uid).get();
       final ordersList = <OrdersModel>[];
       // encode the result
-      print(result.value);
 
       final encodedResult = jsonEncode(result.value);
       final decodedResult = jsonDecode(encodedResult) as Map;
