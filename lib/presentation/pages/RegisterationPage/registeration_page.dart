@@ -1,3 +1,5 @@
+import 'package:coffee_shop/Models/user.dart';
+import 'package:coffee_shop/core/Router/route_names.dart';
 import 'package:coffee_shop/core/constants/assets.dart';
 import 'package:coffee_shop/core/constants/colors.dart';
 import 'package:coffee_shop/core/validator/validators.dart';
@@ -8,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -82,8 +85,7 @@ class _RegisterationPageState extends State<RegisterationPage> {
   }
 
   void _onAlreadyMemberPressed() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const LoginPage()));
+    context.push(RouteNames.loginPath);
   }
 
   bool validated() {
@@ -229,8 +231,7 @@ class _RegisterationPageState extends State<RegisterationPage> {
           next.maybeWhen(
             orElse: () {},
             authenticated: (user) {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const BottomNav()));
+              context.push(RouteNames.botomNavPath);
             },
             unauthenticated: (message) {
               //
@@ -291,9 +292,11 @@ class _RegisterationPageState extends State<RegisterationPage> {
                     }
                     if (validated()) {
                       ref.watch(authNotifierProvider.notifier).signUp(
-                          email: _emailController.text.trim(),
-                          password: _passwordController.text.trim(),
-                          phoneNumber: _phoneController.text.trim());
+                            user: UserModel(
+                                email: _emailController.text.trim(),
+                                password: _passwordController.text.trim(),
+                                phoneNumber: _phoneController.text.trim()),
+                          );
                       return;
                     }
                   },
