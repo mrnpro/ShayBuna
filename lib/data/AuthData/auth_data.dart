@@ -1,17 +1,16 @@
-import 'package:coffee_shop/core/providers/general_providers.dart';
+import 'package:coffee_shop/riverpod_container.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dartz/dartz.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../../Models/user.dart';
 
 final authDataProvider = Provider<AuthData>(
   (ref) => AuthDataImpl(ref: ref),
 );
 
 abstract class AuthData {
-  Future<Either<String, User>> signUp(
-      {required String email,
-      required String password,
-      required String phoneNumber});
+  Future<Either<String, User>> signUp({required UserModel userModel});
   Future<Either<String, User>> signIn(
       {required String email, required String password});
   Future<Either<String, String>> forgotPassword({required String email});
@@ -65,18 +64,30 @@ class AuthDataImpl implements AuthData {
   }
 
   @override
-  Future<Either<String, User>> signUp(
-      {required String email,
-      required String password,
-      required String phoneNumber}) async {
+  Future<Either<String, User>> signUp({required UserModel userModel}) async {
     try {
       UserCredential userCredential = await _ref
           .read(firebaseAuthProvider)
-          .createUserWithEmailAndPassword(email: email, password: password);
+          .createUserWithEmailAndPassword(
+              email: userModel.email!, password: userModel.password!);
+
+      final currentTime = DateTime.now();
+      // modify remove the password and add the current time stamp
+      final modifiedUserData =
+          userModel.copyWith(password: null, date: currentTime.toString());
       User? user = userCredential.user;
       if (user == null) {
         return const Left("Unable to signup, please try again");
       }
+      final uid = user.uid;
+
+      // add user to db
+
+      await _ref
+          .read(firebaseDatabaseProvider)
+          .ref('customers')
+          .child(uid)
+          .set(modifiedUserData.toJson());
       return Right(user);
     } on FirebaseAuthException catch (e) {
       return Left(e.message ?? "signup failed");
