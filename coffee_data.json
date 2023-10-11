@@ -81,6 +81,42 @@
             "category": "Specialty Coffee",
             "description": "Spiced tea with steamed milk.",
             "imagePath": "assets/chai_latte.jpg",
+            "hasMilk": true
+        },
+        {
+            "pid": "3d6f7e8a-1e2b-4f9c-8d7a-6b2c1a0d9e8f",
+            "title": "Iced Tea",
+            "price": "2.79",
+            "category": "Specialty Coffee",
+            "description": "Spiced tea with steamed milk.",
+            "imagePath": "assets/chai_latte.jpg",
+            "hasMilk": true
+        }
+    ],
+    "categories": [
+        "Hot Drinks",
+        "Cold Drinks",
+        "Specialty Coffee"
+    ],
+    "special_coffee_data": [
+        {
+            "pid": "8f9e0c12-25e6-4b88-98c1-7e7e0b4f5c9d",
+            "title": "Iced Mocha",
+            "price": "4.99",
+            "category": "Specialty Coffee",
+            "description": "Chilled coffee with chocolate and whipped cream.",
+            "imagePath": "assets/iced_mocha.jpg",
+            "hasMilk": true,
+            "discountText": "10 % discount",
+            "hasDiscount": true
+        },
+        {
+            "pid": "0a7c6d5e-43e6-4f7a-8b92-5c8f1b9e7d4c",
+            "title": "Chai Latte",
+            "price": "3.79",
+            "category": "Specialty Coffee",
+            "description": "Spiced tea with steamed milk.",
+            "imagePath": "assets/chai_latte.jpg",
             "hasMilk": true,
             "discountText": "10 % discount",
             "hasDiscount": true
@@ -96,15 +132,5 @@
             "discountText": "10 % discount",
             "hasDiscount": true
         }
-    ],
-    "categories": [
-        "Hot Drinks",
-        "Cold Drinks",
-        "Specialty Coffee"
-    ],
-    "special_coffee_data": [
-        "0a7c6d5e-43e6-4f7a-8b92-5c8f1b9e7d4c",
-        "3d6f7e8a-1e2b-4f9c-8d7a-6b2c1a0d9e8f",
-        "f85b7de9-5d7c-4ff8-ba1f-9bcf0f0db6a1"
     ]
 }
