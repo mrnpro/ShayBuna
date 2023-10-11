@@ -1,7 +1,11 @@
+import 'package:coffee_shop/core/Router/route_names.dart';
+import 'package:coffee_shop/riverpod_container.dart';
 import 'package:coffee_shop/presentation/pages/LoginPage/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/text_styles.dart';
@@ -17,25 +21,6 @@ class ProfilePage extends StatelessWidget {
     return SingleChildScrollView(
         child: Column(
       children: [
-        const SizedBox(
-          height: 50,
-        ),
-        CircleAvatar(
-          backgroundColor: MyColors.kSecondaryColor.withOpacity(0.5),
-          radius: 80.h,
-          child: CircleAvatar(
-            radius: 40.h,
-            backgroundColor: MyColors.kSecondaryColor,
-            child: IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.edit,
-                size: 30.h,
-                color: MyColors.kPrimaryColor,
-              ),
-            ),
-          ),
-        ),
         ProfileMenu(
           text: "Edit Profile",
           press: () {},
@@ -44,17 +29,14 @@ class ProfilePage extends StatelessWidget {
           text: "Settings",
           press: () {},
         ),
-        ProfileMenu(
-          text: "Logout",
-          press: () {
-            FirebaseAuth.instance.signOut();
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const LoginPage(),
-                ),
-                (route) => false);
-          },
+        HookConsumer(
+          builder: (context, ref, child) => ProfileMenu(
+            text: "Logout",
+            press: () {
+              ref.read(firebaseAuthProvider).signOut();
+              context.pushReplacement(RouteNames.loginPath);
+            },
+          ),
         )
       ],
     ));
