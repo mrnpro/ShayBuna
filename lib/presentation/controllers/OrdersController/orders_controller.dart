@@ -18,7 +18,12 @@ class OrdersController extends StateNotifier<OrdersState> {
   void getOrders() async {
     state = const OrdersState.loading();
     // fetch the orders data
+
     final result = await _ref.read(ordersDataProvider).getMyOrders();
+    if (!mounted) {
+      return;
+    }
+
     state = result.fold((error) => OrdersState.error(error: error),
         (data) => OrdersState.ordersFetched(orders: data));
   }
