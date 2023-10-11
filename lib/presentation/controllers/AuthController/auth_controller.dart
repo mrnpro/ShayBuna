@@ -1,3 +1,4 @@
+import 'package:coffee_shop/Models/user.dart';
 import 'package:coffee_shop/data/AuthData/auth_data.dart';
 import 'package:coffee_shop/presentation/controllers/AuthController/auth_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -20,13 +21,9 @@ class AuthController extends StateNotifier<AuthenticationState> {
         (r) => AuthenticationState.authenticated(user: r));
   }
 
-  Future<void> signUp(
-      {required String email,
-      required String password,
-      required String phoneNumber}) async {
+  Future<void> signUp({required UserModel user}) async {
     state = const AuthenticationState.loading();
-    final response = await _authData.signUp(
-        email: email, password: password, phoneNumber: phoneNumber);
+    final response = await _authData.signUp(userModel: user);
     state = response.fold((l) => AuthenticationState.error(error: l),
         (r) => AuthenticationState.authenticated(user: r));
   }
