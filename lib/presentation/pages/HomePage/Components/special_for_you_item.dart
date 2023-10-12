@@ -28,7 +28,7 @@ class SpecialForYouItem extends StatelessWidget {
           width: size.width,
           height: 113,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(29),
+              borderRadius: BorderRadius.circular(22),
               boxShadow: [kBoxShadow],
               color: MyColors.kSecondaryColor),
           child: Row(

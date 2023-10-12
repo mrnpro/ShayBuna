@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:coffee_shop/Models/orders_model.dart';
+import 'package:coffee_shop/core/constants/firebase_db_references.dart';
 import 'package:coffee_shop/riverpod_container.dart';
 import 'package:coffee_shop/data/OrdersData/orders_data.dart';
 import 'package:dartz/dartz.dart';
@@ -17,7 +18,7 @@ class OrdersDataImpl implements OrdersData {
   @override
   Future<Either<String, List<OrdersModel>>> getMyOrders() async {
     // db reference
-    final dbReference = _ref.read(firebaseDatabaseProvider).ref('orders');
+    final dbReference = _ref.read(firebaseDatabaseProvider).ref(ordersRef);
     // fetch the user id
     final uid = _ref.read(firebaseAuthProvider).currentUser?.uid;
     // if the user is null it may get all the orders available in it

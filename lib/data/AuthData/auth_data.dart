@@ -1,3 +1,4 @@
+import 'package:coffee_shop/core/constants/firebase_db_references.dart';
 import 'package:coffee_shop/riverpod_container.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dartz/dartz.dart';
@@ -66,26 +67,28 @@ class AuthDataImpl implements AuthData {
   @override
   Future<Either<String, User>> signUp({required UserModel userModel}) async {
     try {
+      // signn with firebase
       UserCredential userCredential = await _ref
           .read(firebaseAuthProvider)
           .createUserWithEmailAndPassword(
               email: userModel.email!, password: userModel.password!);
 
       final currentTime = DateTime.now();
-      // modify remove the password and add the current time stamp
+      // modify: remove the password and add the current time stamp
       final modifiedUserData =
           userModel.copyWith(password: null, date: currentTime.toString());
       User? user = userCredential.user;
       if (user == null) {
         return const Left("Unable to signup, please try again");
       }
+      // get the user id
       final uid = user.uid;
 
       // add user to db
 
       await _ref
           .read(firebaseDatabaseProvider)
-          .ref('customers')
+          .ref(customersRef)
           .child(uid)
           .set(modifiedUserData.toJson());
       return Right(user);

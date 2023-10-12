@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:coffee_shop/core/constants/firebase_db_references.dart';
 import 'package:coffee_shop/riverpod_container.dart';
 import 'package:coffee_shop/data/CoffeeData/coffee_data.dart';
 import 'package:dartz/dartz.dart';
@@ -19,7 +20,7 @@ class CoffeeDataImpl implements CoffeeData {
   @override
   Future<Either<String, List<CoffeeModel>>> getCoffees() async {
     try {
-      final coffeeDatas = await _getCoffees('coffee_data');
+      final coffeeDatas = await _getCoffees(coffeeDataRef);
       return Right(coffeeDatas);
     } on FirebaseException catch (e) {
       return left(e.message ?? "something went wrong please try again latter");
@@ -29,7 +30,7 @@ class CoffeeDataImpl implements CoffeeData {
   @override
   Future<Either<String, List<String>>> getCategories() async {
     try {
-      final reference = _ref.read(firebaseDatabaseProvider).ref('categories');
+      final reference = _ref.read(firebaseDatabaseProvider).ref(categoriesRef);
       final firebaseCoffeeCategories = await reference.get();
       final categories = <String>[];
 
@@ -51,7 +52,7 @@ class CoffeeDataImpl implements CoffeeData {
     if (userId == null) {
       return const Left("UnAuthorized");
     }
-    final coffeeDatas = await _getCoffees('special_coffee_data');
+    final coffeeDatas = await _getCoffees(specialCoffeeDataRef);
     try {
       return Right(coffeeDatas);
     } on FirebaseException catch (e) {
