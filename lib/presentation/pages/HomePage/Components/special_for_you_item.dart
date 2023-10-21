@@ -29,8 +29,8 @@ class SpecialForYouItem extends StatelessWidget {
           height: 113,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(22),
-              boxShadow: [kBoxShadow],
-              color: MyColors.kSecondaryColor),
+              // boxShadow: [kBoxShadow],
+              color: MyColors.kGrey),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -44,14 +44,14 @@ class SpecialForYouItem extends StatelessWidget {
                         style: poppinsStyle.copyWith(
                             fontSize: 24,
                             fontWeight: FontWeight.w700,
-                            color: MyColors.kPrimaryColor)),
+                            color: MyColors.kSecondaryColor)),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 20),
                     child: Text(coffeeModel.discountText ?? "No Discount",
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
-                          color: MyColors.kPrimaryColor,
+                          color: MyColors.kSecondaryColor,
                           fontWeight: FontWeight.w700,
                         )),
                   )
