@@ -29,6 +29,7 @@ class _LoginPageState extends State<LoginPage> {
   late bool _emailHasFocus;
   late FocusNode _passwordlFocus;
   late bool _passwordHasFocus;
+  bool obsecurePassword = true;
   @override
   void initState() {
     super.initState();
@@ -359,10 +360,25 @@ class _LoginPageState extends State<LoginPage> {
                 child: TextFormField(
               focusNode: _passwordlFocus,
               controller: _passwordController,
-              obscureText: true,
+              obscureText: obsecurePassword,
               decoration: const InputDecoration(
                   border: InputBorder.none, hintText: "Your password"),
-            ))
+            )),
+            obsecurePassword
+                ? IconButton(
+                    onPressed: () {
+                      setState(() {
+                        obsecurePassword = false;
+                      });
+                    },
+                    icon: const Icon(Icons.remove_red_eye))
+                : IconButton(
+                    onPressed: () {
+                      setState(() {
+                        obsecurePassword = true;
+                      });
+                    },
+                    icon: const Icon(Icons.visibility_off))
           ]),
         )
       ],
