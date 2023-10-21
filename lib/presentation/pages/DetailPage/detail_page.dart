@@ -38,6 +38,7 @@ class _DetailPageState extends State<DetailPage> {
   _body(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
+      bottom: false,
       child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(10),
@@ -47,7 +48,7 @@ class _DetailPageState extends State<DetailPage> {
               _arrowBack(),
               // _coffeeImage(),
 
-              const CircleAnimationImage(),
+              CircleAnimationImage(coffee: widget.coffeeModel),
               _coffeeInfoBox(size, widget.coffeeModel),
               _coffeeDescription(widget.coffeeModel.description),
               _getButton(),
@@ -77,7 +78,7 @@ class _DetailPageState extends State<DetailPage> {
 
       return Column(
         children: [
-          const SizedBox(height: 48),
+          SizedBox(height: 20.h),
           if (isLoading)
             SizedBox(
               width: 361,
@@ -125,7 +126,7 @@ class _DetailPageState extends State<DetailPage> {
   Column _coffeeDescription(String description) {
     return Column(
       children: [
-        const SizedBox(height: 24),
+        SizedBox(height: 24.h),
         Stack(
           children: [
             Align(
@@ -159,15 +160,17 @@ class _DetailPageState extends State<DetailPage> {
       width: size.width,
       height: 142,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(27),
-          color: MyColors.kSecondaryColor,
-          boxShadow: [kBoxShadow]),
+        borderRadius: BorderRadius.circular(27),
+        color: MyColors.kGrey,
+        //  boxShadow: [kBoxShadow]),
+      ),
       child: Column(children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(coffeeModel.title,
                 style: mochiyPopOneStyle.copyWith(
+                  color: MyColors.kSecondaryColor,
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
                 )),
@@ -176,7 +179,7 @@ class _DetailPageState extends State<DetailPage> {
                 height: 48,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(21),
-                    color: MyColors.kPrimaryColor),
+                    color: MyColors.kSecondaryColor),
                 child: Center(
                   child: Text("${coffeeModel.price} ETB",
                       maxLines: 1,
@@ -184,7 +187,7 @@ class _DetailPageState extends State<DetailPage> {
                       style: mochiyPopOneStyle.copyWith(
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
-                          color: MyColors.kSecondaryColor)),
+                          color: MyColors.kPrimaryColor)),
                 ))
           ],
         ),
@@ -208,17 +211,17 @@ class _DetailPageState extends State<DetailPage> {
                     height: 37,
                     decoration: BoxDecoration(
                       color: selectedIndex == index
-                          ? MyColors.kPrimaryColor
+                          ? MyColors.kSecondaryColor
                           : null,
-                      border: Border.all(color: MyColors.kPrimaryColor),
+                      border: Border.all(color: MyColors.kSecondaryColor),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: Center(
                         child: Text(coffeeSizeList[index].size,
                             style: mochiyPopOneStyle.copyWith(
                               color: selectedIndex == index
-                                  ? MyColors.kSecondaryColor
-                                  : null,
+                                  ? MyColors.kPrimaryColor
+                                  : MyColors.kSecondaryColor,
                               fontSize: 20,
                               fontWeight: FontWeight.w400,
                             )))),

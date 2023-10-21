@@ -30,9 +30,9 @@ class CoffeeCard extends StatelessWidget {
         width: 189,
         height: 293,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(22),
-          color: MyColors.kSecondaryColor,
-          boxShadow: [kBoxShadow],
+          borderRadius: BorderRadius.circular(18),
+          color: MyColors.kGrey,
+          //boxShadow: [kBoxShadow],
         ),
         child: Column(
           children: [
@@ -48,13 +48,13 @@ class CoffeeCard extends StatelessWidget {
                         style: poppinsStyle.copyWith(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
-                            color: MyColors.kPrimaryColor)),
+                            color: MyColors.kSecondaryColor)),
                     const SizedBox(height: 13),
                     Text("${coffeeModel.price}\nETB",
                         style: mochiyPopOneStyle.copyWith(
                             fontSize: 15,
                             fontWeight: FontWeight.w400,
-                            color: MyColors.kThirdColor))
+                            color: MyColors.kSecondaryColor))
                   ],
                 ),
                 SvgPicture.asset(
@@ -79,6 +79,7 @@ class CoffeeCard extends StatelessWidget {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: mochiyPopOneStyle.copyWith(
+              color: MyColors.kSecondaryColor,
               fontSize: 16,
               fontWeight: FontWeight.w400,
             )),
@@ -86,11 +87,14 @@ class CoffeeCard extends StatelessWidget {
     );
   }
 
-  Image _coffeeImage() {
-    return Image.asset(
-      Assets.assetsCoffeeCap,
-      width: 141,
-      height: 129,
+  _coffeeImage() {
+    return Hero(
+      tag: coffeeModel.pid,
+      child: Image.asset(
+        Assets.assetsCoffeeCap,
+        width: 141,
+        height: 129,
+      ),
     );
   }
 }
