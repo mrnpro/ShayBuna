@@ -34,6 +34,18 @@ class HomePage extends ConsumerStatefulWidget {
     return _body(context);
   }
 
+  Future<void> _pullRefresh() async {
+    // reset category index from index 0
+    ref.read(categoryIndexStateProvider.notifier).state = 0;
+    // fetch all categories
+    ref.read(cofeeCategoryNotifier.notifier).fetchAllCategories();
+    // fetch all specials
+    ref.read(specialDataStateNotifierProvider.notifier).fetchSpecials();
+    // fetch all coffee datas with default All Category
+
+    await ref.read(coffeeNotifierProvider.notifier).fetchCoffee();
+  }
+
   _body(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
     return AnnotatedRegion<SystemUiOverlayStyle>(
@@ -42,17 +54,22 @@ class HomePage extends ConsumerStatefulWidget {
         bottom: false,
         child: SizedBox(
             width: size.width,
-            child: SingleChildScrollView(
-              child: Column(children: [
-                _topSection(),
-                _SearchFlavor(size: size, poppinsStyle: poppinsStyle),
-                _CategoryChoice(
-                  size: size,
-                  poppinsStyle: poppinsStyle,
-                ),
-                _categories(),
-                _specialList(size)
-              ]),
+            child: RefreshIndicator(
+              onRefresh: () {
+                return _pullRefresh();
+              },
+              child: SingleChildScrollView(
+                child: Column(children: [
+                  _topSection(),
+                  _SearchFlavor(size: size, poppinsStyle: poppinsStyle),
+                  _CategoryChoice(
+                    size: size,
+                    poppinsStyle: poppinsStyle,
+                  ),
+                  _categories(),
+                  _specialList(size)
+                ]),
+              ),
             )),
       ),
     );
