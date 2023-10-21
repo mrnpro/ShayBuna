@@ -30,38 +30,51 @@ class _OrdersPageState extends ConsumerState<OrdersPage> {
     super.initState();
   }
 
+  Future<void> _pullRefresh() async {
+    await ref.read(ordersStateNotifierProvider.notifier).getOrders();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
 
-    return Column(
-      children: [
-        _appBar(size),
-        SizedBox(
-          height: size.height / 1.3.h,
-          width: size.width,
-          child: ref.watch(ordersStateNotifierProvider).maybeWhen(orElse: () {
-            return _loading(size);
-          }, ordersFetched: (data) {
-            return _onData(data, size);
-          }),
+    return Scaffold(
+      backgroundColor: MyColors.kPrimaryColor,
+      appBar: _appBar(size),
+      body: RefreshIndicator(
+        onRefresh: () {
+          return _pullRefresh();
+        },
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              ref.watch(ordersStateNotifierProvider).maybeWhen(orElse: () {
+                return _loading(size);
+              }, ordersFetched: (data) {
+                return _onData(data, size);
+              }),
+            ],
+          ),
         ),
-      ],
+      ),
     );
   }
 
-  ListView _onData(List<OrdersModel> data, Size size) {
-    return ListView.builder(
-      itemCount: data.length,
-      itemBuilder: (context, index) => _order(size,
-          price: "${data[index].price} ETB",
-          status: data[index].deliveryStatus,
-          title: "Capuccino"),
+  Column _onData(List<OrdersModel> data, Size size) {
+    return Column(
+      children: [
+        for (var element in data)
+          _order(size,
+              price: "${element.price} ETB",
+              status: element.deliveryStatus,
+              title: "Capuccino"),
+      ],
     );
   }
 
   ListView _loading(Size size) {
     return ListView.builder(
+      shrinkWrap: true,
       itemCount: 10,
       itemBuilder: (context, index) => Skeleton(
         margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -71,45 +84,49 @@ class _OrdersPageState extends ConsumerState<OrdersPage> {
     );
   }
 
-  Container _appBar(Size size) {
-    return Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        width: size.width,
-        height: 80.h,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: MyColors.kSecondaryColor),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: Text("Orders",
-                  style: poppinsStyle.copyWith(
-                      fontSize: 30.sp,
-                      fontWeight: FontWeight.bold,
-                      color: MyColors.kPrimaryColor)),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Icon(
-              Icons.coffee,
-              color: MyColors.kPrimaryColor,
-            ),
-          ],
-        ));
+  PreferredSize _appBar(Size size) {
+    return PreferredSize(
+      preferredSize: Size(size.width, 80),
+      child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          width: size.width,
+          height: 80.h,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: MyColors.kSecondaryColor),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: Text("Orders",
+                    style: poppinsStyle.copyWith(
+                        fontSize: 30.sp,
+                        fontWeight: FontWeight.bold,
+                        color: MyColors.kPrimaryColor)),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Icon(
+                Icons.coffee,
+                color: MyColors.kPrimaryColor,
+              ),
+            ],
+          )),
+    );
   }
 
   Container _order(Size size, {String? title, String? price, String? status}) {
     return Container(
+        padding: const EdgeInsets.all(5),
         margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
         width: size.width,
-        height: 113.h,
+        //  height: 113.h,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(19),
-            boxShadow: [kBoxShadow],
-            color: MyColors.kPrimaryColor),
+            //boxShadow: [kBoxShadow],
+            color: MyColors.kGrey),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -145,9 +162,9 @@ class _OrdersPageState extends ConsumerState<OrdersPage> {
               ],
             ),
             Container(
-              margin: const EdgeInsets.only(top: 8, bottom: 8, right: 8),
-              width: 100,
-              height: 100,
+              // margin: const EdgeInsets.only(top: 8, bottom: 8, right: 8),
+              width: 80.h,
+              height: 80.h,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(100),
                   border: Border.all(color: MyColors.kSecondaryColor, width: 3),
