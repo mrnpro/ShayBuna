@@ -1,11 +1,12 @@
+import 'package:coffee_shop/Models/coffee_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/constants/assets.dart';
 import '../../../core/constants/common_widgets.dart';
 
 class CircleAnimationImage extends StatefulWidget {
-  const CircleAnimationImage({super.key});
-
+  const CircleAnimationImage({super.key, required this.coffee});
+  final CoffeeModel coffee;
   @override
   _CircleAnimationImageState createState() => _CircleAnimationImageState();
 }
@@ -13,8 +14,8 @@ class CircleAnimationImage extends StatefulWidget {
 class _CircleAnimationImageState extends State<CircleAnimationImage>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  final double _radius = 50.0;
-  final double _angle = 0.0;
+  final double radius = 50.0;
+  final double angle = 0.0;
   late Animation<double> _animation;
 
   @override
@@ -53,14 +54,17 @@ class _CircleAnimationImageState extends State<CircleAnimationImage>
     return Center(
         child: Transform.rotate(
       angle: _animation.value * 1.2,
-      child: Container(
-        width: 241,
-        height: 264,
-        decoration: const BoxDecoration(
-          shape: BoxShape.circle,
-          image: DecorationImage(
-            image: AssetImage(Assets.assetsCoffeeCap),
-            fit: BoxFit.fill,
+      child: Hero(
+        tag: widget.coffee.pid,
+        child: Container(
+          width: 241,
+          height: 264,
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            image: DecorationImage(
+              image: AssetImage(Assets.assetsCoffeeCap),
+              fit: BoxFit.fill,
+            ),
           ),
         ),
       ),
