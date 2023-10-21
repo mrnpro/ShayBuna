@@ -15,7 +15,7 @@ class OrdersController extends StateNotifier<OrdersState> {
       : _ref = ref,
         super(const OrdersState.initial());
 
-  void getOrders() async {
+  Future<void> getOrders() async {
     state = const OrdersState.loading();
     // fetch the orders data
 
