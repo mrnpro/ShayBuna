@@ -176,7 +176,7 @@ class HomePage extends ConsumerStatefulWidget {
                               .read(specialDataStateNotifierProvider.notifier)
                               .fetchSpecials();
                         },
-                        icon: const Icon(Icons.refresh))
+                        icon: const Icon(Icons.arrow_forward))
                   ],
                 ),
               ),
