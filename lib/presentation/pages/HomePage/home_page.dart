@@ -23,18 +23,11 @@ import 'Components/choice_chips.dart';
 import 'Components/coffee_card.dart';
 import 'Components/special_for_you_item.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
 }
-
-class _HomePageState extends State<HomePage> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
