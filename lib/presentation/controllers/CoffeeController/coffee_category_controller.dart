@@ -13,7 +13,8 @@ class CofeeCategoryController extends StateNotifier<AsyncValue<List<String>>> {
       : _ref = ref,
         super(const AsyncValue.loading());
 
-  void fetchAllCategories() async {
+  Future<void> fetchAllCategories() async {
+    state = const AsyncValue.loading();
     final response = await _ref.read(coffeeDataProvider).getCategories();
     state = response.fold(
         (error) => AsyncValue.error(error, StackTrace.current),
