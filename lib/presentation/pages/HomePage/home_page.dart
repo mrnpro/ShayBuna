@@ -27,8 +27,10 @@ class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _HomePageState();
 }
 
+class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     return _body(context);
@@ -365,43 +367,58 @@ class _SearchFlavor extends StatelessWidget {
           onTap: () {
             context.push(RouteNames.coffeeSearchPath);
           },
-          child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 10),
-            padding: const EdgeInsets.all(10),
+          child: SizedBox(
             width: size.width,
             height: 51,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(14),
-                border: Border.all(color: MyColors.kSecondaryColor),
-                color: const Color(0xffdacabd)),
-            child: Center(
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Hero(
-                            tag: 'search_icon',
-                            child: SvgPicture.asset(Assets.assetsSearchIcon)),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Hero(
-                            tag: 'search_your_flavor',
-                            child: Text("Search your flavor",
-                                style: poppinsStyle)),
-                      ],
+            child: Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(14),
+                        border: Border.all(color: MyColors.kSecondaryColor),
+                        color: const Color(0xffdacabd)),
+                    child: Center(
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Hero(
+                                    tag: 'search_icon',
+                                    child: SvgPicture.asset(
+                                        Assets.assetsSearchIcon)),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Hero(
+                                    tag: 'search_your_flavor',
+                                    child: Text("Search your flavor",
+                                        style: poppinsStyle)),
+                              ],
+                            ),
+                          ]),
                     ),
-                    Hero(
-                      tag: 'filter_icon',
-                      child: Center(
-                          child: Icon(
+                  ),
+                ),
+                Hero(
+                  tag: 'filter_icon',
+                  child: Container(
+                      margin: const EdgeInsets.only(right: 10),
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: MyColors.kSecondaryColor),
+                          color: MyColors.kSecondaryColor),
+                      child: Icon(
                         Icons.filter_alt,
-                        color: MyColors.kSecondaryColor,
+                        color: const Color(0xffdacabd),
                         size: 30.h,
                       )),
-                    ),
-                  ]),
+                ),
+              ],
             ),
           ),
         )
